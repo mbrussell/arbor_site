@@ -1,8 +1,4 @@
-- source: myblog
-  netlify:
-    - id: 76d99887-25ab-45ff-992d-9afa7a5b6f58
-      url: 'https://arbor-analytics.com/'
 - source: project
   netlify:
-    - id: 16d11cad-55a8-4825-bb16-6c199ee3fb61
-      url: 'https://vermillion-arithmetic-f3ba07.netlify.app'
+    - id: 36c660db-d179-4ffd-9036-20d987211f73
+      url: 'https://dreamy-chimera-fead44.netlify.app'
