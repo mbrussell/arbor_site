@@ -1,0 +1,15 @@
+{
+  "hash": "6b32c759ba7dfe83b8d9c07bf05610fb",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: A review of the log trucking workforce and comparisons to other industries\ndate: '2022-09-28'\nslug: []\ncategories:\n  - Forest industry\n  - Presentation\ntags:\n  - analytics\n  - forest industry\n  - forest products\n  - trucking\n  - transportation\nimage: trucking_title.png\ndescription: 'Presentation at the Forest Resources Association Fall Meeting.'\n---\n\n\n\n<center>\n\n![](trucking_title.png){width=500px}\n</center>\n\n##\n \nThe trucking industry is faced with a number of challenges, including recruiting workers, pending retirements, and an increase in demand due to e-commerce sales. These slides provide an overview of the log trucking workforce and were presented at the Forest Resources Association's Fall Board Meeting in Portland, ME.\n\n[READ THE SLIDES](https://docs.google.com/presentation/d/17Dv47PLyi_z2K-iMbJy282Q9TMx_A7_zhwUTr0Oe_DE/edit?usp=sharing). ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

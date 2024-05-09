@@ -1,0 +1,15 @@
+{
+  "hash": "301a55f386e078bbc46f7276187b8d43",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Sampling design and statistical approaches in forestry\nauthor: Matt Russell\ndate: '2023-05-19'\nslug: []\ncategories:\n  - Statistics\n  - Workshop\ntags:\n  - analytics\n  - sampling\n  - forestsamplr\n  - data science\n  - statistics\n  - tidymodels\nimage: tag_flyer.jpg\ndescription: 'Online workshop for Tag Ng.'  \n---\n\n\n\n<center>\n\n![](tag_flyer.jpg)\n</center>\n\n##\n \nThis workshop for Tag Ng showcased how sampling and statistics can be used in forestry applications. The two-hour virtual workshop discussed common sampling design used in forestry and statistical approaches with forest inventory data. Example coding sessions used the **forestsamplr** and **tidymodels** packages in R. \n\n* [VIEW SLIDES](https://docs.google.com/presentation/d/12FlhFFPKFmRrEQVdkZQU3bY4aK_hgvsWv5nOa0TY_rM/edit?usp=sharing)\n* [VIEW R CODE AND DATA](https://github.com/mbrussell/tagng_sampling_statistics)\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

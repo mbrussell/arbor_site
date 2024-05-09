@@ -1,0 +1,251 @@
+{
+  "about.qmd": {
+    "about.html": "e560b939"
+  },
+  "index.qmd": {
+    "index.html": "7e63bad6"
+  },
+  "posts.qmd": {
+    "posts.html": "5d3aa710"
+  },
+  "posts/2024-02-23-arbor-is-on-quarto/index.qmd": {
+    "index.html": "38ef7495"
+  },
+  "events.qmd": {
+    "events.html": "da8fc8c1"
+  },
+  "posts/a primer on carbon sequestration rates/index.qmd": {
+    "index.html": "077927fe"
+  },
+  "posts/2024-04-10-recapping-the-russell-s-2024-maple-syrup-season/index.qmd": {
+    "index.html": "8b50956a"
+  },
+  "posts/2024-04-10-recapping-the-russell-s-2024-maple-syrup-season/index.Rmd": {
+    "index.html": "e9c650a4"
+  },
+  "posts/2024-02-26-preliminary-thoughts-on-using-the-new-national-scale-volume-and-biomass-estimators/index.Rmd": {
+    "index.html": "77ef3c5e"
+  },
+  "posts/2024-04-24-a-primer-on-carbon-sequestration-rates-in-us-forests/index.Rmd": {
+    "index.html": "6f2f58fa"
+  },
+  "posts/2024-01-13-new-web-app-shows-pandemic-assistance-to-forest-products-industry-by-state/index.Rmd": {
+    "index.html": "1df2adf4"
+  },
+  "posts/2024-01-21-are-winter-temperatures-correlated-with-stumpage-prices-in-maine/index.Rmd": {
+    "index.html": "c08b510e"
+  },
+  "posts/2024-02-16-a-quick-and-easy-way-to-estimate-forestland-area-change-across-us-states/index.Rmd": {
+    "index.html": "b27b9c9e"
+  },
+  "newsletter.qmd": {
+    "newsletter.html": "fb5ab37c"
+  },
+  "events/2024-03-28-placing-harvested-wood-products-in-the-forest-carbon-discussion/index.Rmd": {
+    "index.html": "0ab9c0cc"
+  },
+  "events/2023-12-08-unlocking-value-harvested-wood-products-in-forest-carbon-programs/index.Rmd": {
+    "index.html": "b5dd84ae"
+  },
+  "events/2023-10-16-harvested-wood-products-and-forest-carbon/index.Rmd": {
+    "index.html": "cbf2e68b"
+  },
+  "events/2022-04-23-potential-improvements-to-support-forest-carbon-management-and-accounting/index.Rmd": {
+    "index.html": "2a967214"
+  },
+  "events/2022-09-27-a-review-of-the-log-trucking-workforce-and-comparisons-to-other-industries/index.Rmd": {
+    "index.html": "542664cd"
+  },
+  "events/2022-09-27-data-science-for-forestry-applications/index.Rmd": {
+    "index.html": "1dfd2f85"
+  },
+  "events/2022-09-27-pandemic-assistance-to-the-forest-industry-a-summary/index.Rmd": {
+    "index.html": "b1340e27"
+  },
+  "events/2022-12-01-recent-research-insights-in-forest-biomass-and-carbon-estimation/index.Rmd": {
+    "index.html": "6413ca1f"
+  },
+  "events/2023-03-19-quantifying-harvested-wood-products-and-forest-management-in-carbon-analyses/index.Rmd": {
+    "index.html": "de347bec"
+  },
+  "events/2023-05-22-sampling-design-and-statistical-approaches-in-forestry/index.Rmd": {
+    "index.html": "b00cc56d"
+  },
+  "post/2024-01-13-new-web-app-shows-pandemic-assistance-to-forest-products-industry-by-state/index.Rmd": {
+    "index.html": "70d68d38"
+  },
+  "post/2024-01-21-are-winter-temperatures-correlated-with-stumpage-prices-in-maine/index.Rmd": {
+    "index.html": "fb65b7cb"
+  },
+  "post/2024-02-16-a-quick-and-easy-way-to-estimate-forestland-area-change-across-us-states/index.Rmd": {
+    "index.html": "5c585090"
+  },
+  "post/2024-02-23-arbor-is-on-quarto/index.qmd": {
+    "index.html": "3d72b757"
+  },
+  "post/2024-02-26-preliminary-thoughts-on-using-the-new-national-scale-volume-and-biomass-estimators/index.Rmd": {
+    "index.html": "cc9939c7"
+  },
+  "post/2024-04-10-recapping-the-russell-s-2024-maple-syrup-season/index.qmd": {
+    "index.html": "a644f724"
+  },
+  "post/2024-04-24-a-primer-on-carbon-sequestration-rates-in-us-forests/index.Rmd": {
+    "index.html": "67b9ff39"
+  },
+  "post.qmd": {
+    "post.html": "276f51a4"
+  },
+  "post/2021-02-04-forest-carbon-a-reading-list-for-beginners/index.Rmd": {
+    "index.html": "fdedd346"
+  },
+  "post/2021-02-12-a-forestproud-moment-after-listening-to-the-meateater-podcast/index.Rmd": {
+    "index.html": "113fd733"
+  },
+  "post/2021-02-21-private-forest-landowner-demographics-compared-to-the-us-population/index.Rmd": {
+    "index.html": "a58d5ed3"
+  },
+  "post/2021-03-20-an-overview-of-forest-carbon-markets-for-small-landowners/index.Rmd": {
+    "index.html": "161c81dd"
+  },
+  "post/2021-05-08-understanding-the-forest-products-industry-using-naics-codes/index.Rmd": {
+    "index.html": "ad991cf7"
+  },
+  "post/2021-05-15-harvested-wood-products-an-increasing-contributor-to-us-carbon-storage/index.Rmd": {
+    "index.html": "210cef29"
+  },
+  "post/2021-06-12-forest-carbon-cheat-sheet-updated-for-2021/index.Rmd": {
+    "index.html": "c9f4c7c3"
+  },
+  "post/2021-07-19-peer-review-lessons-learned-from-reviewing-100-forest-science-manuscripts/index.Rmd": {
+    "index.html": "41fc2a59"
+  },
+  "post/2021-08-08-forest-carbon-key-definitions-and-numbers-in-perspective/index.Rmd": {
+    "index.html": "08d17b12"
+  },
+  "post/2021-08-12-new-ebook-forest-carbon-by-the-numbers/index.Rmd": {
+    "index.html": "ba5504b5"
+  },
+  "post/2021-08-22-if-50-of-a-tree-s-biomass-is-carbon-what-s-the-other-half/index.Rmd": {
+    "index.html": "7ce278ac"
+  },
+  "post/2021-09-07-the-importance-of-citizen-data-scientists-in-forest-analytics/index.Rmd": {
+    "index.html": "af92125a"
+  },
+  "post/2021-09-26-random-forests-a-tutorial-with-forestry-data/index.Rmd": {
+    "index.html": "5c69bdf2"
+  },
+  "post/2021-11-13-h-2b-workers-essential-to-the-forest-products-industry/index.Rmd": {
+    "index.html": "029fa142"
+  },
+  "post/2021-11-27-co2-offsets-and-trips-to-the-family-cabin/index.Rmd": {
+    "index.html": "ed128e3d"
+  },
+  "post/2021-12-17-most-read-articles-in-2021/index.Rmd": {
+    "index.html": "8f0af94c"
+  },
+  "post/2022-02-19-forestry-is-a-stem-discipline/index.Rmd": {
+    "index.html": "95c87477"
+  },
+  "post/2022-02-22-what-does-the-price-of-carbon-have-to-be-for-landowners-to-enroll-in-carbon-markets/index.Rmd": {
+    "index.html": "92569acf"
+  },
+  "post/2022-04-10-carbon-credits-quantity-versus-quality/index.Rmd": {
+    "index.html": "e3100218"
+  },
+  "post/2022-04-20-known-unknowns-unknown-unknowns/index.Rmd": {
+    "index.html": "ef3f09ea"
+  },
+  "post/2022-07-14-a-forest-carbon-data-dashboard-for-minnesota/index.Rmd": {
+    "index.html": "0cad4971"
+  },
+  "post/2022-07-20-new-book-statistics-in-natural-resources-applications-with-r/index.Rmd": {
+    "index.html": "40f953ee"
+  },
+  "post/2022-07-27-simple-volume-to-weight-conversion-for-us-tree-species/index.Rmd": {
+    "index.html": "7e04fb0c"
+  },
+  "post/2022-08-04-fvs-and-cbm-cfs3-comparing-two-forest-carbon-accounting-tools/index.Rmd": {
+    "index.html": "ea79ac13"
+  },
+  "post/2022-08-15-comparing-logging-trucker-wages-to-other-trucking-industries/index.Rmd": {
+    "index.html": "13211d55"
+  },
+  "post/2022-10-10-p-ing-in-the-woods-p-values-in-forest-science/index.Rmd": {
+    "index.html": "2a7aa831"
+  },
+  "post/2022-10-20-how-to-spot-poor-data-analyses/index.Rmd": {
+    "index.html": "22fa4a89"
+  },
+  "post/2022-11-23-new-updates-for-tools-that-query-forest-inventory-and-analysis-data/index.Rmd": {
+    "index.html": "e6ce06b4"
+  },
+  "post/2022-12-14-doing-statistics-in-the-tidyverse-exploring-the-infer-package/index.Rmd": {
+    "index.html": "a0189d40"
+  },
+  "post/2022-12-21-forest-carbon-cheat-sheet-updated-for-2022/index.Rmd": {
+    "index.html": "4fd8a4ce"
+  },
+  "post/2022-12-23-visualizing-stumpage-prices-for-sawlogs-in-maine-2019-2020/index.Rmd": {
+    "index.html": "1d9fa2ec"
+  },
+  "post/2023-01-05-forestland-on-the-blockchain-a-new-prospect-for-private-forest-owners/index.Rmd": {
+    "index.html": "5776edc8"
+  },
+  "post/2023-02-09-calculating-carbon-in-standing-dead-trees/index.Rmd": {
+    "index.html": "97bf421e"
+  },
+  "post/2023-02-15-imputing-missing-tree-heights-from-a-forest-inventory/index.Rmd": {
+    "index.html": "45cf9645"
+  },
+  "post/2023-03-21-how-much-of-maine-s-forests-are-enrolled-in-carbon-programs/index.Rmd": {
+    "index.html": "50b1c518"
+  },
+  "post/2023-09-21-selecting-the-number-of-plots-to-measure-in-a-forest-carbon-inventory/index.Rmd": {
+    "index.html": "0f30c512"
+  },
+  "post/2023-07-15-it-s-okay-to-look-at-solutions-for-statistics-problems/index.Rmd": {
+    "index.html": "d464b2d2"
+  },
+  "post/2023-06-30-making-r-graphs-more-accessible-using-brailler/index.Rmd": {
+    "index.html": "0024743f"
+  },
+  "post/2023-07-31-linear-quantile-mixed-models-applications-in-forestry/index.Rmd": {
+    "index.html": "59ed9230"
+  },
+  "post/2023-08-22-implementing-adaptive-silviculture-scenarios-in-the-forest-vegetation-simulator/index.Rmd": {
+    "index.html": "710a3064"
+  },
+  "post/2023-09-13-recent-changes-in-the-tidyverse/index.Rmd": {
+    "index.html": "57905af2"
+  },
+  "post/2023-10-25-using-r-and-python-to-get-forest-resource-data-through-the-evalidator-api/index.Rmd": {
+    "index.html": "0d8c2c86"
+  },
+  "post/2023-10-31-calibrating-fvs-how-much-does-adding-previous-diameter-and-height-growth-change-predictions/index.Rmd": {
+    "index.html": "8a4557e8"
+  },
+  "post/2023-11-17-a-handy-function-for-getting-ecological-division-from-fia-data/index.Rmd": {
+    "index.html": "41eeceb9"
+  },
+  "post/2023-11-24-a-list-of-r-packages-for-forestry-applications/index.Rmd": {
+    "index.html": "3fdc5a99"
+  },
+  "post/2023-12-17-rockefeller-tree/index.Rmd": {
+    "index.html": "c9b5572f"
+  },
+  "post/2023-12-22-most-popular-blog-posts-and-podcasts-in-2023/index.Rmd": {
+    "index.html": "13f14a14"
+  },
+  "post/2023-04-21-lorey-s-height-the-remote-sensing-way-to-estimate-tree-height/index.Rmd": {
+    "index.html": "cb4e590b"
+  },
+  "post/2023-05-25-quantifying-the-shade-tolerance-of-climate-adapted-tree-species-in-the-northeast/index.Rmd": {
+    "index.html": "e2bde6fe"
+  },
+  "post/2023-04-12-bootstrapped-resampling-estimates-to-predict-tree-height/index.Rmd": {
+    "index.html": "7a58c1dc"
+  },
+  "post/how-many-trees-make-a-mass-timber-building/index.Rmd": {
+    "index.html": "f99cfa12"
+  }
+}

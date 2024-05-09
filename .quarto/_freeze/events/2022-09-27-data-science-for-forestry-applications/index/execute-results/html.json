@@ -1,0 +1,15 @@
+{
+  "hash": "f0c0a740b88691d150f50094fa6f360d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Data Science for Forestry Applications\ndate: '2022-09-20'\nslug: []\ncategories:\n  - Data science\n  - Workshop\ntags:\n  - Data science\n  - Workshop\n  - R\nimage: https://eforester.org/images/Events/SAF22%20Vertical%20(RGB)1.jpg\ndescription: 'Workshop at SAF National Convention.'  \n---\n\n\n<center>\n\n![](https://eforester.org/images/Events/SAF22%20Vertical%20(RGB)1.jpg){width=250px}\n</center>\n\n##\n \nThis hands-on workshop showcased how data science can be used in forestry applications. Participants learned how to use open-source software (specifically R) to work quickly and efficiently with forestry data, with a focus on using large datasets such as Forest Inventory and Analysis data. This workshop was perfect for students and professionals who want to learn more about how to use R to work with the data they have.   \n\n* [VIEW SLIDES](https://docs.google.com/presentation/d/1rcr0rA2s1ySvXwu7LM9NVQXAT7yQHF8X/edit?usp=sharing&ouid=106502698516425492089&rtpof=true&sd=true)",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

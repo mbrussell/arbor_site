@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matt Russell">
+<meta name="dcterms.date" content="2023-08-29">
+<meta name="description" content="A tutorial on adaptive silviculture treatments in FVS.">
+
+<title>Arbor Custom Analytics LLC - Implementing climate adaptive silviculture scenarios in the Forest Vegetation Simulator</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/arbor_block.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/arbor_block.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Arbor Custom Analytics LLC</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../post.html"> 
+<span class="menu-text">Insights</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../events.html"> 
+<span class="menu-text">Events</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../newsletter.html"> 
+<span class="menu-text">Newsletter</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/arbor-custom-analytics"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Implementing climate adaptive silviculture scenarios in the Forest Vegetation Simulator</h1>
+                  <div>
+        <div class="description">
+          A tutorial on adaptive silviculture treatments in FVS.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Forest growth and yield</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matt Russell </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 29, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a>
+  <ul class="collapse">
+  <li><a href="#connecticut-fia-data" id="toc-connecticut-fia-data" class="nav-link" data-scroll-target="#connecticut-fia-data">Connecticut FIA data</a></li>
+  <li><a href="#adaptive-silviculture-treatments" id="toc-adaptive-silviculture-treatments" class="nav-link" data-scroll-target="#adaptive-silviculture-treatments">Adaptive silviculture treatments</a></li>
+  <li><a href="#simulating-adaptive-silviculture-with-fvs" id="toc-simulating-adaptive-silviculture-with-fvs" class="nav-link" data-scroll-target="#simulating-adaptive-silviculture-with-fvs">Simulating adaptive silviculture with FVS</a></li>
+  </ul></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a>
+  <ul class="collapse">
+  <li><a href="#gaps-subtreatment" id="toc-gaps-subtreatment" class="nav-link" data-scroll-target="#gaps-subtreatment">Gaps subtreatment</a></li>
+  </ul></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"></a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8"></a></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9"></a></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10"></a></li>
+  <li><a href="#section-11" id="toc-section-11" class="nav-link" data-scroll-target="#section-11"></a>
+  <ul class="collapse">
+  <li><a href="#reserve-subtreatment" id="toc-reserve-subtreatment" class="nav-link" data-scroll-target="#reserve-subtreatment">Reserve subtreatment</a></li>
+  <li><a href="#matrix-subtreatment-with-thinning" id="toc-matrix-subtreatment-with-thinning" class="nav-link" data-scroll-target="#matrix-subtreatment-with-thinning">Matrix subtreatment with thinning</a></li>
+  </ul></li>
+  <li><a href="#section-12" id="toc-section-12" class="nav-link" data-scroll-target="#section-12"></a></li>
+  <li><a href="#section-13" id="toc-section-13" class="nav-link" data-scroll-target="#section-13"></a></li>
+  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14"></a></li>
+  <li><a href="#section-15" id="toc-section-15" class="nav-link" data-scroll-target="#section-15"></a>
+  <ul class="collapse">
+  <li><a href="#fvs-output" id="toc-fvs-output" class="nav-link" data-scroll-target="#fvs-output">FVS output</a></li>
+  </ul></li>
+  <li><a href="#section-16" id="toc-section-16" class="nav-link" data-scroll-target="#section-16"></a></li>
+  <li><a href="#section-17" id="toc-section-17" class="nav-link" data-scroll-target="#section-17"></a></li>
+  <li><a href="#section-18" id="toc-section-18" class="nav-link" data-scroll-target="#section-18"></a></li>
+  <li><a href="#section-19" id="toc-section-19" class="nav-link" data-scroll-target="#section-19"></a></li>
+  <li><a href="#section-20" id="toc-section-20" class="nav-link" data-scroll-target="#section-20"></a></li>
+  <li><a href="#section-21" id="toc-section-21" class="nav-link" data-scroll-target="#section-21"></a></li>
+  <li><a href="#section-22" id="toc-section-22" class="nav-link" data-scroll-target="#section-22"></a></li>
+  <li><a href="#section-23" id="toc-section-23" class="nav-link" data-scroll-target="#section-23"></a>
+  <ul class="collapse">
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="section" class="level1">
+<h1></h1>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ascc_sign.JPG" class="img-fluid figure-img" width="500"></p>
+<figcaption><em>The Adaptive Silvicultre for Climate Change Project at the Chippewa National Forest, Minnesota, USA. Photo: Josh Kragthorpe.</em></figcaption>
+</figure>
+</div>
+</center>
+</section>
+<section id="section-1" class="level1">
+<h1></h1>
+<p>If you follow the latest research in forestry, it’s hard not to come across studies relating to <strong>adaptive silviculture</strong>. <a href="https://www.adaptivesilviculture.org/silviculture-climate-adaptation">In a nutshell</a>, adaptive silviculture is “designed to specifically address climate change impacts and vulnerabilities to meet management goals and objectives.”</p>
+<p>If you’ve ever been on a field tour of a forest that has recently seen a timber harvest and has undergone an adaptive silviculture treatment, you were likely impressed with the complex spatial distribution of residual trees following the harvest. These treatments create gaps between a quarter acre and a few acres in size, leave behind reserve areas where no trees are harvested, or incorporate thinning prescriptions in the “matrix”. All in a single stand, the spatial diversity of these stands can be incredible.</p>
+<p>Stands that are managed for climate change can look complex, and so can quantifying their future structure. Most of our growth and yield models were designed to handle relatively simple forest management scenarios such as clearcuts, thinnings, and shelterwood treatments. Simulating stands that are managed under an adaptive silviculture framework can be accomplished with some growth and yield models, but not without careful tinkering.</p>
+<p>This post will step through a tutorial using the <a href="https://arbor-analytics.com/post/2022-08-04-fvs-and-cbm-cfs3-comparing-two-forest-carbon-accounting-tools/">Forest Vegetation Simulator (FVS)</a>, a widely used individual tree model that uses lists of trees (e.g., species and tree diameter) to forecast forest growth through time. The FVS model can simulate forest management activities, disturbances, and provide forest carbon and harvested wood products reports. A series of 22 different model variants provide regional differences in forest growth patterns. This analysis will simulate stands under an adaptive silviculture for climate change approach.</p>
+<section id="connecticut-fia-data" class="level2">
+<h2 class="anchored" data-anchor-id="connecticut-fia-data">Connecticut FIA data</h2>
+<p>For this analysis I’ll use three forest inventory plots measured in the state of Connecticut, obtained from the US Forest Inventory an Analysis network of plots. These plots were measured between 2018 and 2021 using a fixed radius sample design. These plots were dominated by <strong>oak trees</strong>. Two of the plots were recorded as occurring in the white oak/red oak/hickory forest type and the other in the white oak forest type.</p>
+<p>Before harvests, initial basal area ranged between 155 and 194 square feet per acre. You can download the FVS-ready files I’ve compiled for these stands <a href="https://github.com/mbrussell/myblog/tree/master/content/post/2023-08-22-implementing-adaptive-silviculture-scenarios-in-the-forest-vegetation-simulator/data">at this page on GitHub</a>.</p>
+</section>
+<section id="adaptive-silviculture-treatments" class="level2">
+<h2 class="anchored" data-anchor-id="adaptive-silviculture-treatments">Adaptive silviculture treatments</h2>
+<p>For the treatments to specify in FVS, we’ll follow a similar prescription that is being conducted at an <a href="https://www.adaptivesilviculture.org/node/996">Adaptive Silviculture for Climate Change experiment in New Hampshire</a>. This treatment follows a resilience approach to climate change, where the treatment will allow some change in current forest conditions, but will also encourage its return to original conditions. The silvicultural strategy is to generally use group and single-tree selection across the stand. The subtreatments within the stand are:</p>
+<ul>
+<li><strong>Gaps</strong>: Small gaps that leave openings for light-dependent species (20% of stand),</li>
+<li><strong>Reserves</strong>: No management within small areas across the stand (20% of stand), and</li>
+<li><strong>Matrix</strong>: Thinning to 80 square feet per acre (60% of the stand)</li>
+</ul>
+<p>This approach seeks to maintain the diversity of native tree species while also increasing drought-adapted species like oaks.</p>
+</section>
+<section id="simulating-adaptive-silviculture-with-fvs" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-adaptive-silviculture-with-fvs">Simulating adaptive silviculture with FVS</h2>
+<p>The FVS model has an excellent web interface, which <a href="https://www.fs.usda.gov/fvs/software/complete.php">can be downloaded here</a>. I’ll use this interface and specify to use the Northeast variant to the FVS model.</p>
+<p>The three stands in the Connecticut FIA data are labeled with stand identification numbers <strong>9_11_157</strong>, <strong>9_11_67</strong>, and <strong>9_3_389</strong>. We can add all of them by pressing <em>Add Selected Stands</em> and include them in the Run Contents window:</p>
+</section>
+</section>
+<section id="section-2" class="level1">
+<h1></h1>
+<center>
+<img src="fvs_screenshot.png" class="img-fluid" width="800">
+</center>
+</section>
+<section id="section-3" class="level1">
+<h1></h1>
+<p>One approach that I’ve found effective in simulating adaptive silviculture treatments in FVS is through <strong>adding replicates with different weights</strong>. This approach is also described in an <a href="https://www.fs.usda.gov/fvs/documents/FVSTrainingGuide-20210930.pdf">FVS Training Guide</a>, and is similar to adding “subtreatments” within a stand. For example, if half of a stand is clearcut and half is not harvested, you could add two replicates with relative weights of 50% each, then perform the management actions within each replicate.</p>
+<p>For the adaptive silviculture treatments planned for these stands, we can add three replicates with relative weights of 20%, 20%, and 60% corresponding to the gap, reserves, and thinning matrix subtreatments:</p>
+</section>
+<section id="section-4" class="level1">
+<h1></h1>
+<center>
+<img src="fvs_weight_replicate.png" class="img-fluid" width="500">
+</center>
+</section>
+<section id="section-5" class="level1">
+<h1></h1>
+<p>Now, you’re ready to specify the management actions within each subtreatment, or replicate.</p>
+<section id="gaps-subtreatment" class="level3">
+<h3 class="anchored" data-anchor-id="gaps-subtreatment">Gaps subtreatment</h3>
+<p>For the first replicate, labeled <em>r001</em>, we’ll simulate the gaps subtreatment. This is essentially the harvested “group” in the group selection treatment where all trees are removed. For the purpose of this tutorial, we’ll use only stand number <strong>9_11_157</strong>:</p>
+</section>
+</section>
+<section id="section-6" class="level1">
+<h1></h1>
+<center>
+<img src="rep1_22.png" class="img-fluid" width="250">
+</center>
+</section>
+<section id="section-7" class="level1">
+<h1></h1>
+<p>To specify the harvest within the gaps, select <strong>Regeneration Methods: Even-aged</strong> under the <em>Categories</em> drop down and then <strong>Clearcut/coppice</strong> under the <em>Components</em> drop down. The harvest will occur in 2023. We’ll specify the smallest diameter tree to be cut as 1-inch and will leave no legacy trees as a part of these gaps:</p>
+</section>
+<section id="section-8" class="level1">
+<h1></h1>
+<center>
+<img src="gaps_screen.png" class="img-fluid" width="500">
+</center>
+</section>
+<section id="section-9" class="level1">
+<h1></h1>
+<p>There will be plenty of light available in these gaps, so we’ll want to add some natural regeneration. The Northeast variant of the FVS model does not have a full regeneration module, so oftentimes regeneration needs to be manually entered. By default, the FVS-Northeast model does include regeneration from sprouting species like oaks and aspen. However, we’ll turn the sprouting feature off and will manually enter the species and number of trees to regenerate.</p>
+<p>Select <strong>Planting &amp; Natural Regen</strong> under the <em>Categories</em> drop down and then <strong>Plant/Natural with Partial Estab Model</strong> under the <em>Components</em> drop down. We’ll add 300 trees per acre to naturally regenerate in these gaps, evenly split between two species. After looking at the overstory species found in these stands, we’ll select northern red oak and sweet birch to regenerate, given there is likely plenty of seed source available. We’ll set the survival rate to 80% to account for some mortality through deer browse and other factors:</p>
+</section>
+<section id="section-10" class="level1">
+<h1></h1>
+<center>
+<img src="regen_gaps.png" class="img-fluid" width="500">
+</center>
+</section>
+<section id="section-11" class="level1">
+<h1></h1>
+<section id="reserve-subtreatment" class="level3">
+<h3 class="anchored" data-anchor-id="reserve-subtreatment">Reserve subtreatment</h3>
+<p>For the Reserve subtreatment (<em>r002</em>), there’s not much needed to do here. You can select the <strong>Grp: AutoRep=2</strong> field in the Run Contents window of FVS, but don’t need to specify any management. We’re essentially running a “let it grow” scenario. Being a reserve treatment, we’ll simply let the current trees grow through the simulation and won’t add any regeneration.</p>
+</section>
+<section id="matrix-subtreatment-with-thinning" class="level3">
+<h3 class="anchored" data-anchor-id="matrix-subtreatment-with-thinning">Matrix subtreatment with thinning</h3>
+<p>We’ll specify thinning to occur in the matrix subtreatment (<em>r003</em>). Select the <strong>Grp: AutoRep=3</strong> field in the Run Contents window to apply the thinning treatments to the remaining 60% of the stand. Select <strong>Thinning and Pruning Operations</strong> under the <em>Categories</em> drop down and then <strong>Thin throughout a diameter range</strong> under the <em>Components</em> drop down. Thinning throughout will harvest trees from across the range of the diameter distribution.</p>
+<p>The prescription calls for a thinning to leave 80 square feet of residual basal area per acre. Leave the default value to remove all species in the thinning:</p>
+</section>
+</section>
+<section id="section-12" class="level1">
+<h1></h1>
+<center>
+<img src="matrix_screen.png" class="img-fluid" width="500">
+</center>
+</section>
+<section id="section-13" class="level1">
+<h1></h1>
+<p>We’ll also add some natural regeneration within the matrix. However, because the residual trees will continue to occupy some light, we’ll add half the amount of regeneration in the matrix compared to what we added in the open gaps. We’ll add 150 trees per acre to naturally regenerate, turning off the default sprouting action. Again, the species will be evenly split between northern red oak and sweet birch. We’ll lower the survival to 50% to account for the limited light conditions in the thinned portion of the stand:</p>
+</section>
+<section id="section-14" class="level1">
+<h1></h1>
+<center>
+<img src="mr.png" class="img-fluid" width="500">
+</center>
+</section>
+<section id="section-15" class="level1">
+<h1></h1>
+<section id="fvs-output" class="level2">
+<h2 class="anchored" data-anchor-id="fvs-output">FVS output</h2>
+<p>We’ll run a 50-year simulation (through 2073), which can be changed under the <strong>Time</strong> window. Another keyword that I’ll set is <em>NoTriple</em>, which turns off the tripling of tree records early in the simulation. It can be found under the <strong>Keywords</strong> menu.</p>
+<p>FVS provides multiple outputs to select from under the <strong>Select Outputs</strong> tab. I’ll choose <em>Stand Visualization</em>, <em>Carbon and fuels</em>, <em>Stand structure</em>, and <em>Regeneration.</em> Choose <em>Save and Run</em> under the <em>Run</em> window to perform the simulation.</p>
+<p>After the simulation is complete for this stand, select <em>View Outputs</em>, <em>Explore</em>, and then <em>Graphs</em>. You can see the merchantable volume trends within the gaps, reserve, and matrix subtreatments:</p>
+<ul>
+<li>For the <strong>gaps</strong> subtreatment (in red), all of the volume is removed, and by the end of the 50-year simulation our natural regeneration has not grown enough to yield any merchantable volume.</li>
+<li>For the <strong>reserve</strong> subtreatment (in green), the stand continues to grow throughout the simulation.</li>
+<li>For the <strong>matrix</strong> subtreatment (in blue), some volume is initially removed and growth continues throughout the simulation.</li>
+</ul>
+</section>
+</section>
+<section id="section-16" class="level1">
+<h1></h1>
+<center>
+<img src="volume.png" class="img-fluid" width="500">
+</center>
+</section>
+<section id="section-17" class="level1">
+<h1></h1>
+<p>Despite the fact that we’ve simulated three subtreatments within a stand, FVS provides the <strong>Composite table</strong> in a format that weights the stand measurements calculated within each subtreatment. You can view the Composite table under <em>Database tables to consider</em> and selecting the <em>CmpSummary2_East</em> table:</p>
+</section>
+<section id="section-18" class="level1">
+<h1></h1>
+<center>
+<img src="view_outputs.png" class="img-fluid" width="250">
+</center>
+</section>
+<section id="section-19" class="level1">
+<h1></h1>
+<p>As you can see in the table, the composite residual basal area across the entire stand is 79 square feet per acre. You can quickly confirm this is correct by calculating a weighted average of the residual basal area in the gaps (0 square feet), the reserve (155 square feet, the initial basal area), and the matrix (80 square feet). These would correspond to the replicate weights of 20%, 20%, and 60% in the gaps, reserve, and matrix, respectively:</p>
+</section>
+<section id="section-20" class="level1">
+<h1></h1>
+<center>
+<img src="composite.png" class="img-fluid" width="500">
+</center>
+</section>
+<section id="section-21" class="level1">
+<h1></h1>
+<p>Finally, you can view more output by selecting <em>View Outputs</em>, <em>Explore</em>, and then <em>Graphs</em>. Here are the composite trees per acre, basal area, and quadratic mean diameter (QMD) across the stand. We can see the impact of adding the natural regeneration to the increasing trees per acre, then decreasing as the stands go through density-dependent mortality. Basal area and QMD are lowered immediately after harvest, then increase throughout the simulation:</p>
+</section>
+<section id="section-22" class="level1">
+<h1></h1>
+<center>
+<img src="structure.png" class="img-fluid" width="800">
+</center>
+</section>
+<section id="section-23" class="level1">
+<h1></h1>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Running adaptive silvicultural management in models like FVS is possible and can account for diverse harvest scenarios like thinning treatments, group selection harvests, and planting climate-adapted species. It’s important to note that FVS is a distance-independent model and doesn’t rely on a tree’s spatial location to determine growth and mortality. Many climate-adaptive forest management treatments rely on spatial heterogeneity as a part of maintaining diversity and resilience in the face of future uncertain climates. Unfortunately, few growth and yield models can incorporate spatial variability in addition to having the capability to forecast a variety of forest management treatments like FVS.</p>
+<p>The process of adding subtreatments within FVS to account for different management actions and viewing the composite tables allows for the assessment of management impacts at the stand scale. Still, if many stands are run within FVS with multiple subtreatments, I like to export the data to other software like R and do my own calculations of stand-level attributes. Although models like FVS were not originally designed to incorporate complex forest management scenarios like adaptive silviculture, there are strategies to forecast what stands may look like under an adaptive management framework.</p>
+<p>–</p>
+<p><em>By Matt Russell. Check out the <a href="https://github.com/mbrussell/myblog/tree/master/content/post/2023-08-22-implementing-adaptive-silviculture-scenarios-in-the-forest-vegetation-simulator/data">FVS-ready files on GitHub</a> if you want to replicate this simulation, or try a another simulation using the other two stands. <a href="mailto:matt@arbor-analytics.com">Email Matt</a> with any questions or comments.</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/vermillion-arithmetic-f3ba07\.netlify\.app");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Designed with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,15 @@
+{
+  "hash": "313409648a7e65688f0937f7eaeed708",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 'Forest carbon cheat sheet: updated for 2022'\nauthor: Matt Russell\ndate: '2022-12-21'\nslug: []\ncategories:\n  - Carbon\ntags:\n  - analytics\n  - carbon\n  - forest measurements\n  - forest products\n  - climate\n---\n\n\n\nThe Forest Carbon Cheat Sheet is a quick reference guide for converting forest carbon measurements and understanding typical carbon values at the tree, stand, and landscape levels. \n\nThe Cheat Sheet has been updated with the most recent values published in the US Environmental Protection Agency [Inventory of U.S. Greenhouse Gas Emissions and Sinks: 1990-2020](https://www.epa.gov/ghgemissions/inventory-us-greenhouse-gas-emissions-and-sinks-1990-2020).  \n\n\n[**DOWNLOAD (PDF)**](https://drive.google.com/file/d/1c8j6sn0bITANtrvjM3emca4S-CERDe5k/view?usp=sharing)\n\n[**DOWNLOAD (PNG)**](https://drive.google.com/file/d/1rEcQJwtqHvpnDlHOiyY9MNChYxBPq4Yz/view?usp=sharing)\n\n<center>\n![The Forest Carbon Cheat Sheet.](Forest Carbon Cheat Sheet 2022.png){width=500px}\n</center>\n\n\n--\n\n*By Matt Russell. [Email Matt](mailto:matt@arbor-analytics.com) with any questions or comments. Sign up for my [monthly newsletter](https://mailchi.mp/d96897dc0f46/arbor-analytics) for in-depth analysis on data and analytics in the forest products industry.*\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

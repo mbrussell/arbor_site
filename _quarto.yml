@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Arbor Custom Analytics LLC"
+  site-url: https://arbor-analytics.com
+  favicon: images/arbor_block.png  
+  navbar:
+    logo: images/arbor_block.png 
+    right:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - post.qmd
+      - events.qmd
+      - newsletter.qmd
+      - icon: linkedin
+        href: https://www.linkedin.com/company/arbor-custom-analytics
+  page-footer: 
+    right: "Designed with [Quarto](https://quarto.org/)."
+    left: "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
+format:
+  html:
+    theme: 
+      light: minty
+      dark: slate
+    css: styles.css
+    toc: true
+
+
+

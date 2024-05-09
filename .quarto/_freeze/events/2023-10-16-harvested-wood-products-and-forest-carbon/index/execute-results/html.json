@@ -1,0 +1,15 @@
+{
+  "hash": "d94e2f3f6a1cd487f812e3befc52551a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Harvested wood products and forest carbon\ndate: '2023-10-11'\nslug: []\ncategories:\n  - Forest carbon\n  - Presentation\ntags:\n  - carbon\n  - carbon accounting\n  - forest carbon\n  - forest products\n  - forest industry\nimage: hwp_title.png\ndescription: 'Presentation at the Northeast Silviculture Institute for Foresters.'\n---\n\n\n<center>\n\n![](hwp_title.png)\n\n</center>\n\n## \n \nHarvested wood products store carbon from sustainably-managed forests. These slides were presented at the Northeast Silviculture Institute for Foresters in Gardner, MA on Oct. 11, 2023.\n\n[READ THE SLIDES](https://www.dropbox.com/scl/fo/qa0d9k7fmq278w1qqypiy/h?dl=0&preview=Russell_harvested_woods_products_silviculture_institute.pdf&rlkey=4d0v361b7drpk2sy9tx717odz). ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

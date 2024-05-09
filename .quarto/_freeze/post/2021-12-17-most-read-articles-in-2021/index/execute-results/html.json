@@ -1,0 +1,17 @@
+{
+  "hash": "a07b165aa139e28bbf2670355609c06f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Most read articles in 2021\nauthor: Matt Russell\ndate: '2021-12-17'\nslug: []\ncategories:\n  - Behind the curtain\ntags:\n  - blog\n  - behind the curtain\n---\n\n\n\n\n<center>\n\n![Andrew Neel/Unsplash](aspen cloquet.jpg){width=500px}\n</center>\n\n\n##\n\nIn 2021, 26 new posts were published to this blog on topics relating to data and forest products. Have an idea for a post you'd like to see? [Email Matt](mailto:matt@arbor-analytics.com) with any suggestions.\n\nHere are the most read posts from the Arbor Custom Analytics blog in 2021:\n\n1. [Getting your data into R from Google Sheets](https://arbor-analytics.com/post/getting-your-data-into-r-from-google-sheets/)\n\n2. [Creating animated bar charts to visualize sawtimber prices](https://arbor-analytics.com/post/2021-04-26-creating-animated-bar-charts-to-visualize-satimber-prices/) \n\n3. [Mixed models in R: a primer](https://arbor-analytics.com/post/mixed-models-a-primer/)\n\n4. [How to created paged HTML documents with pagedown](https://arbor-analytics.com/post/how-to-created-paged-html-documents-with-pagedown/)\n\n5. [Presenting regression results better with forest plots](https://arbor-analytics.com/post/presenting-regression-results-better/)\n\n--\n\n*By Matt Russell. Sign up for my [monthly newsletter](https://mailchi.mp/d96897dc0f46/arbor-analytics) for in-depth analysis on data and analytics in the forest products industry.*\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

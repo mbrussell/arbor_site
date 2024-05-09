@@ -1,0 +1,17 @@
+{
+  "hash": "b3639cc1e2b99bdd0654e55b0bee5e0a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: If 50% of a tree's biomass is carbon, what's the other half?\nauthor: Matt Russell\ndate: '2021-08-22'\nslug: []\ncategories:\n  - Carbon\ntags:\n  - carbon\n  - forest carbon\n  - forest measurements\n---\n\n\n\n<center>\n![](aspen.jpg){width=250px}\n</center>\n\n# \n\n> \"You wrote earlier that “since half of biomass is carbon, I multiply by 0.5.” What is the other half of biomass?\"\n\nI was sent this question this question over email last week. As foresters, we're often concerned with only carbon stored and sequestered in trees. But the are other elements that form the chemical composition of wood. While there are slight deviations to the [\"50% of biomass in wood is carbon\" assumption](https://arbor-analytics.com/post/2021-06-18-testing-the-assumption-half-of-the-biomass-of-a-tree-is-carbon/), it is a statement that provides an approximation about the amount of carbon in wood. \n\nFlashbacks of your middle school biology classes might enter your mind as you remember equations for photosynthesis and plant growth. The other 50% of wood is mostly oxygen (~44%), hydrogen (~6%), nitrogen (~1%), and other trace metals. Other trace metals include calcium, potassium, and iron, among other elements. We can view the wood characteristics in a polar area diagram:\n\n\n::: {.cell}\n\n:::\n\n\n\n<center>\n![](wood_comp.png)\n</center>\n\n\nAlthough the chemical compositions of wood vary by species and regions, these are approximations for \"the other half\". The major components of wood - lignin, cellulose, and hemicellulose - each vary in terms of the proportion of carbon found in them. It's a useful reminder of the unique chemical composition of wood.\n\n--\n\n*By Matt Russell. [Email Matt](mailto:matt@arbor-analytics.com) with any questions or comments. Sign up for my [monthly newsletter](https://mailchi.mp/d96897dc0f46/arbor-analytics) for in-depth analysis on data and analytics in the forest products industry.*\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

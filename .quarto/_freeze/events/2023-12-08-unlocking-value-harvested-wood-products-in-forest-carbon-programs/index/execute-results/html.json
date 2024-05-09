@@ -1,0 +1,15 @@
+{
+  "hash": "22c1b657b5e8e5d1a5e5568b16206cc1",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 'Unlocking value: harvested wood products in forest carbon programs'\ndate: '2023-11-30'\nslug: []\ncategories:\n  - Forest products\n  - Presentation\nimage: hwp_slides.png \ndescription: 'Presentation at the Linkiwood 2023 Wood Tech Leadership Summit.'\n---\n\n\n<center>\n\n![](hwp_slides.png)\n\n</center>\n\n## \n \nHarvested wood products store carbon in many different forms. Increasingly, forest carbon programs are available to diverse forest landowners, and harvested wood products that result from enrolled properties need to be counted. These slides were presented at the [Linkiwood 2023 Wood Tech Leadership Summit](https://linkiwood.com/business-summit-2023/) on Nov. 30, 2023.\n\n[READ THE SLIDES HERE](https://drive.google.com/file/d/1F0zbkyewxLu26YE_ex3NOTJ6L0Vp53Hn/view?usp=sharing). \n\n[WATCH THE RECORDING (18:09)](https://youtu.be/CZd-21c7mr0?si=n3HicCLPSdhSn_dD) on YouTube. ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

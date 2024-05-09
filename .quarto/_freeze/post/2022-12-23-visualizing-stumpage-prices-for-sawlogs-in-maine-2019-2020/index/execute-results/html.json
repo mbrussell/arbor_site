@@ -1,0 +1,17 @@
+{
+  "hash": "978c8971f90316668fbe091cf6e3b3b2",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Stumpage prices for sawlogs in Maine, 2019-2020\nauthor: Matt Russell\ndate: '2022-12-23'\nslug: []\ncategories:\n  - Forest products\ntags:\n  - Data viz\n  - forest products\n  - forestry\n  - timber prices\n---\n\n\n\n<center>\n![](logs pile white pine.jpg){width=400px}\n</center>\n\n#\n\nMany states provide information on stumpage prices for commonly harvested timber species. This information provides land managers and landowners a sense of what current prices are for different timber species, products, and regions throughout a state.\n\nThe Maine Forest Service (MFS) collects data on timber sales through a notification process when timber sales occur. The last report from MFS contains over 1,600 reports from landowners that conducted a timber sale in 2020.\n\nThe information is used by MFS and the state to accurately determine land valuations and to estimate the amount of area harvested in a given year. Although markets can fluctuate quickly, the data is also useful to landowners and land managers to better understand a fair price for timber across different regions and product classes.\n\nThe [2020 stumpage report by MFS](https://www.maine.gov/tools/whatsnew/attach.php?id=6915492&an=1) was published in March 2022 and contains statewide and county-level data for product classes (e.g., sawlogs, pulpwood, and palletwood) and species (e.g., oak, pine, maple). The report also contains values from the previous year to compare with current prices:\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n::: {.cell-output-display}\n![*Statewide stumpage prices in Maine, 2019 and 2020.*](index_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\nHere we can see that red oak, sugar maple, and ash have the greatest sawlog prices for all species across the state. You will also note generally lower prices for sawlogs in 2020 compared to 2019 levels. \n\nFor species with a substantial number of reported values, the minimum and maximum values of stumpage prices are also provided. Here are the stumpage prices for sawlogs in 2020 for all Maine counties:\n\n\n::: {.cell}\n::: {.cell-output-display}\n![*Stumpage prices by Maine county, 2019 and 2020. NOTE: Capital area includes Kennebec, Knox, Lincoln, and Waldo counties; Casco Bay includes Androscoggin, Cumberland, Sagadohoc, and York counties.*](index_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n\n\nForest data analysts can use data like these to understand market conditions for different species. If you're interested in seeing the data set that contains these prices, I've made a spreadsheet [available on Github (titled me_stumpage.csv).](https://github.com/mbrussell/myblog/tree/master/content/post/2022-12-23-visualizing-stumpage-prices-for-sawlogs-in-maine-2019-2020)\n\n--\n\n*How do you use data like stumpage prices in your organization? I’m always curious to know, so [let me know via email](mailto:matt@arbor-analytics.com).*\n\n*By Matt Russell. Sign up for [my monthly newsletter](https://mailchi.mp/d96897dc0f46/arbor-analytics) for in-depth analysis on data and analytics in the forest products industry.*\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

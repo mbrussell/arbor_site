@@ -1,0 +1,15 @@
+{
+  "hash": "68fa34718af948c2cb96d08332242e5c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Recent research insights in forest biomass and carbon estimation\ndate: '2022-11-30'\nslug: []\ncategories:\n  - Forest carbon\n  - Presentation\ntags:\n  - analytics\n  - carbon markets\n  - carbon credits\n  - CARB\n  - carbon\n  - forest carbon\n  - forest inventory and analysis\nimage: CARB COP projects.png\ndescription: 'Presentation for the California Air Resources Board.'\n---\n\n\n<center>\n\n![](titleslide.png){width=500px}\n</center>\n\n##\n\nRecent research within the forest biometrics community is helping to generate more precise estimates of forest carbon using new methods and technologies. This presentation was delivered to the California Air Resources Board Public Workshop on US Forest Projects Compliance Offset Protocol on November 30, 2022.\n\n[READ THE SLIDES.](https://docs.google.com/presentation/d/1j58n-xS3HudJ0FezbSnFk4AHLWcmlpySbapKPqFOax4/edit?usp=sharing)",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

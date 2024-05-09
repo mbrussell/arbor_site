@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matt Russell">
+<meta name="dcterms.date" content="2023-02-10">
+
+<title>Arbor Custom Analytics LLC - Calculating carbon in standing dead trees</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/arbor_block.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/arbor_block.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Arbor Custom Analytics LLC</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../post.html"> 
+<span class="menu-text">Insights</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../events.html"> 
+<span class="menu-text">Events</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../newsletter.html"> 
+<span class="menu-text">Newsletter</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/arbor-custom-analytics"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Calculating carbon in standing dead trees</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Forest carbon</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matt Russell </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 10, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#standing-dead-tree-data" id="toc-standing-dead-tree-data" class="nav-link" data-scroll-target="#standing-dead-tree-data">Standing dead tree data</a></li>
+  <li><a href="#calculating-volume-biomass-and-carbon-in-standing-dead-trees" id="toc-calculating-volume-biomass-and-carbon-in-standing-dead-trees" class="nav-link" data-scroll-target="#calculating-volume-biomass-and-carbon-in-standing-dead-trees">Calculating volume, biomass and carbon in standing dead trees</a>
+  <ul class="collapse">
+  <li><a href="#tree-volume" id="toc-tree-volume" class="nav-link" data-scroll-target="#tree-volume">Tree volume</a></li>
+  <li><a href="#species-data" id="toc-species-data" class="nav-link" data-scroll-target="#species-data">Species data</a></li>
+  <li><a href="#structural-loss-adjustments" id="toc-structural-loss-adjustments" class="nav-link" data-scroll-target="#structural-loss-adjustments">Structural loss adjustments</a></li>
+  </ul></li>
+  <li><a href="#determing-component-biomass-in-standing-dead-trees" id="toc-determing-component-biomass-in-standing-dead-trees" class="nav-link" data-scroll-target="#determing-component-biomass-in-standing-dead-trees">Determing component biomass in standing dead trees</a>
+  <ul class="collapse">
+  <li><a href="#stem-and-bark" id="toc-stem-and-bark" class="nav-link" data-scroll-target="#stem-and-bark">Stem and bark</a></li>
+  <li><a href="#stumps" id="toc-stumps" class="nav-link" data-scroll-target="#stumps">Stumps</a></li>
+  <li><a href="#tops-and-limbs" id="toc-tops-and-limbs" class="nav-link" data-scroll-target="#tops-and-limbs">Tops and limbs</a></li>
+  <li><a href="#belowground-roots" id="toc-belowground-roots" class="nav-link" data-scroll-target="#belowground-roots">Belowground (roots)</a></li>
+  <li><a href="#total-standing-dead-tree-biomass-and-carbon" id="toc-total-standing-dead-tree-biomass-and-carbon" class="nav-link" data-scroll-target="#total-standing-dead-tree-biomass-and-carbon">Total standing dead tree biomass and carbon</a></li>
+  </ul></li>
+  <li><a href="#r-functions-to-determine-standing-dead-tree-biomass-and-carbon" id="toc-r-functions-to-determine-standing-dead-tree-biomass-and-carbon" class="nav-link" data-scroll-target="#r-functions-to-determine-standing-dead-tree-biomass-and-carbon">R functions to determine standing dead tree biomass and carbon</a></li>
+  <li><a href="#other-notes" id="toc-other-notes" class="nav-link" data-scroll-target="#other-notes">Other notes</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<center>
+<p><img src="balsam fir snag Maine.jpg" class="img-fluid" width="400"></p>
+</center>
+<center>
+<em>A standing dead balsam fir tree in Maine.</em>
+</center>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<p>Quantifying the presence and abundance of standing dead trees (SDTs) is notoriously difficult. While live and healthy trees generally appear similar in form and appearance to other live and healthy trees, no two standing dead trees are alike.</p>
+<p>Trees that recently died within a few months can have most of their tops and limbs intact. Their foliage may even still be attached. Trees that have been standing dead for a decade or more can only have a portion of the bole remaining with the rest already decaying on the forest floor.</p>
+<p>These attributes make quantifying the carbon found within SDTs incredibly complex. The popular <a href="https://www.fs.usda.gov/research/treesearch/6996">Jenkins biomass equations</a> were developed for live trees, and cannot be applied to SDTs directly. If you’re only using common forest inventory measurements like species and diameter, there’s really no way to quantify the difference in the amount of carbon in a tree that recently died to one that has been standing dead for decades.</p>
+<p>Fortunately, most inventories that measure dead wood will collect data on the stage of decay of SDTs. These data are needed to refine estimates of SDT biomass and carbon by including structural loss and decay adjustments.</p>
+<p>In this post I implement a method for quantifying the amount of carbon in standing dead trees using R, drawing especially from functions in the <strong>tidyverse</strong> package. The approach presented here follows the component ratio method approach for determining carbon developed by the USDA Forest Service. A few key resources that go through the methods of this approach:</p>
+<ul>
+<li><a href="https://cbmjournal.biomedcentral.com/articles/10.1186/1750-0680-6-14"><em>Accounting for density reduction and structural loss in standing dead trees: implications for forest biomass and carbon stock estimates in the United States</em></a> by Domke et al.&nbsp;2011. This paper describes the method and how it impacts the Forest Inventory and Analysis data.</li>
+<li><a href="https://static-content.springer.com/esm/art%3A10.1186%2F1750-0680-6-14/MediaObjects/13021_2011_72_MOESM1_ESM.PDF">Additional file 1 from the paper (PDF).</a> The supplemental file presents equations the equations used estimate above and belowground SDT biomass and carbon and provides an example calculation.</li>
+</ul>
+</section>
+<section id="standing-dead-tree-data" class="level2">
+<h2 class="anchored" data-anchor-id="standing-dead-tree-data">Standing dead tree data</h2>
+<p>I compiled a few records of standing dead trees from four Forest Inventory and Analysis plots located in Maine. The four plots were measured in 2021 and the data set contains 10 SDTs. Here is the data that can be read into R with the <code>tribble()</code> function from the <strong>tidyverse</strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>STATECD, <span class="sc">~</span>COUNTYCD, <span class="sc">~</span>PLOT, <span class="sc">~</span>TREE, <span class="sc">~</span>SPCD, <span class="sc">~</span>DIA, <span class="sc">~</span>ACTUALHT, <span class="sc">~</span>DECAYCD,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">130</span>, <span class="dv">6</span>, <span class="dv">95</span>, <span class="fl">6.7</span>, <span class="dv">27</span>, <span class="dv">3</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">130</span>, <span class="dv">9</span>, <span class="dv">95</span>, <span class="fl">5.6</span>, <span class="dv">9</span>, <span class="dv">2</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">688</span>, <span class="dv">1</span>, <span class="dv">12</span>, <span class="fl">7.9</span>, <span class="dv">35</span>, <span class="dv">1</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">688</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="fl">8.6</span>, <span class="dv">31</span>, <span class="dv">1</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">701</span>, <span class="dv">1</span>, <span class="dv">371</span>, <span class="dv">11</span>, <span class="dv">17</span>, <span class="dv">5</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">701</span>, <span class="dv">6</span>, <span class="dv">531</span>, <span class="fl">5.5</span>, <span class="dv">49</span>, <span class="dv">1</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">846</span>, <span class="dv">8</span>, <span class="dv">241</span>, <span class="fl">13.6</span>, <span class="dv">26</span>, <span class="dv">2</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">846</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="fl">6.2</span>, <span class="dv">10</span>, <span class="dv">4</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">846</span>, <span class="dv">17</span>, <span class="dv">12</span>, <span class="fl">6.8</span>, <span class="dv">5</span>, <span class="dv">4</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">846</span>, <span class="dv">23</span>, <span class="dv">12</span>, <span class="fl">5.1</span>, <span class="dv">29</span>, <span class="dv">2</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The variables are:</p>
+<ul>
+<li><code>STATECD</code>: Numeric state ID code (23 = Maine),</li>
+<li><code>COUNTYCD</code>: Numeric county ID code (29 = Washington County),<br>
+</li>
+<li><code>PLOT</code>: Numeric plot ID code,<br>
+</li>
+<li><code>TREE</code>: Numeric tree ID code,<br>
+</li>
+<li><code>SPCD</code>: Numeric FIA tree species code,<br>
+</li>
+<li><code>DIA</code>: Tree diameter (inches),</li>
+<li><code>ACTUALHT</code>: Height of the tree (feet), from ground level to the highest remaining portion of the tree,</li>
+<li><code>DECAYCD</code>: Numeric code indicating the stage of decay in a standing dead tree; ranges from 1 (all limbs and branches are present) to 5 (no evidence of branches remains; top is broken)</li>
+</ul>
+</section>
+<section id="calculating-volume-biomass-and-carbon-in-standing-dead-trees" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-volume-biomass-and-carbon-in-standing-dead-trees">Calculating volume, biomass and carbon in standing dead trees</h2>
+<section id="tree-volume" class="level3">
+<h3 class="anchored" data-anchor-id="tree-volume">Tree volume</h3>
+<p>The first step to calculating the amount of carbon stored in SDTs is to determine their volume. In your region, there are likely regional volume equations that are used for the species you’re interested in. For this example, I’ll use <a href="http://ifmlab.for.unb.ca/People/Kershaw/Courses/For1001/Honer.html">equations developed by Honer in 1967</a> which are widely used for commercial species in the northeastern US and Canada.</p>
+<p>The Honer equations predict volume in cubic feet and rely on species, diameter at breast height (<code>DBH</code>; measured in inches) and total tree height (<code>HT</code>; measured in feet):</p>
+<p><span class="math display">\[ VOL = \frac{DBH^2}{a = \frac{b}{HT}}\]</span> where <code>a</code> and <code>b</code> are species-specific coefficients.</p>
+<p>Here is an R function to determine the volumes of the five species of SDTs in the data set:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fx_HONER_VOL <span class="ot">&lt;-</span> <span class="cf">function</span>(SPCD, DBH, HT){</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(SPCD <span class="sc">==</span> <span class="dv">12</span>){a <span class="ot">=</span> <span class="fl">2.139</span>; b <span class="ot">=</span> <span class="fl">301.634</span>}   <span class="co"># balsam fir</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SPCD <span class="sc">==</span> <span class="dv">95</span>){a <span class="ot">=</span> <span class="fl">1.588</span>; b <span class="ot">=</span> <span class="fl">333.364</span>}   <span class="co"># black spruce</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SPCD <span class="sc">==</span> <span class="dv">241</span>){a <span class="ot">=</span> <span class="fl">4.167</span>; b <span class="ot">=</span> <span class="fl">244.906</span>}  <span class="co"># northern white-cedar</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SPCD <span class="sc">==</span> <span class="dv">371</span>){a <span class="ot">=</span> <span class="fl">1.449</span>; b <span class="ot">=</span> <span class="fl">344.754</span>}  <span class="co"># yellow birch</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SPCD <span class="sc">==</span> <span class="dv">531</span>){a <span class="ot">=</span> <span class="fl">0.959</span>; b <span class="ot">=</span> <span class="fl">334.829</span>}  <span class="co"># American beech</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  VOL <span class="ot">=</span> DBH<span class="sc">**</span><span class="dv">2</span><span class="sc">/</span>(a<span class="sc">+</span>(b<span class="sc">/</span>HT))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(VOL)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can estimate the total volume of SDTs by applying the function to the <code>tree</code> data set. I use the <code>mutate()</code> function along with <code>mapply()</code> to create the new variable <code>VOL</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> tree <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">VOL =</span> <span class="fu">mapply</span>(fx_HONER_VOL, <span class="at">SPCD =</span> SPCD, <span class="at">DBH =</span> DIA, <span class="at">HT =</span> ACTUALHT))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A graph of the tree diameter-volume trends highlights the data. Note that because many of the SDTs may have a broken top, trees can be a large diameter with relatively small volume, which adds some “noise” to the relationship:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tree, <span class="fu">aes</span>(<span class="at">x =</span> DIA, <span class="at">y =</span> VOL, <span class="at">col =</span> <span class="fu">factor</span>(SPCD))) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Diameter (in.)"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Volume (cu.ft.)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="species-data" class="level3">
+<h3 class="anchored" data-anchor-id="species-data">Species data</h3>
+<p>To determine biomass and carbon attributes of dead trees, the <strong>species reference data set</strong> (<code>REF_SPECIES.csv</code>) provided by the FIA program is a must. This file contains species-specific values of wood density, decay ratios, and more. We’ll read the .csv file in from the USDA website, then select the core variables needed to determine biomass and carbon for SDTs:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ref_spp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"C://Users//matt//Documents//Arbor//Projects//FFCP//Central Apps v1//Data//REF_SPECIES.csv"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SPCD, WOOD_SPGR_GREENVOL_DRYWT, BARK_SPGR_GREENVOL_DRYWT, BARK_VOL_PCT,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         WOOD_SPGR_MC12VOL_DRYWT, SFTWD_HRDWD, JENKINS_TOTAL_B1,JENKINS_TOTAL_B2,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         STANDING_DEAD_DECAY_RATIO1, STANDING_DEAD_DECAY_RATIO2, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         STANDING_DEAD_DECAY_RATIO3,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>         STANDING_DEAD_DECAY_RATIO4, STANDING_DEAD_DECAY_RATIO5,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>         RAILE_STUMP_DOB_B1, RAILE_STUMP_DIB_B1, RAILE_STUMP_DIB_B2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we’ll join the <code>ref_spp</code> data set to the <code>tree</code> data set:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(tree, ref_spp, <span class="at">by =</span> <span class="st">"SPCD"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we’ll modify some of the species-specific factors from the reference species table. The <code>STANDING_DEAD_DECAY_RATIO</code> variable contains the ratio of decayed wood density to non-decayed wood density. It’s stored in five different variables for each of the five different decay classes, so the code below will turn it into a data set organized in a long format:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ref_spp_dead <span class="ot">&lt;-</span> ref_spp <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SPCD, STANDING_DEAD_DECAY_RATIO1, STANDING_DEAD_DECAY_RATIO2, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         STANDING_DEAD_DECAY_RATIO3, STANDING_DEAD_DECAY_RATIO4, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         STANDING_DEAD_DECAY_RATIO5) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(STANDING_DEAD_DECAY_RATIO1<span class="sc">:</span>STANDING_DEAD_DECAY_RATIO5, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"DECAY_NAME"</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"STANDING_DEAD_DECAY_RATIO"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DECAYCD =</span> <span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(DECAY_NAME, <span class="dv">26</span>, <span class="dv">26</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>DECAY_NAME) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(SPCD, DECAYCD, STANDING_DEAD_DECAY_RATIO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For example, here are the decay ratios for standing dead trees for the five decay classes for balsam fir:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ref_spp_dead[ref_spp_dead<span class="sc">$</span>SPCD <span class="sc">==</span> <span class="dv">12</span>, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+   SPCD DECAYCD STANDING_DEAD_DECAY_RATIO
+  &lt;dbl&gt;   &lt;dbl&gt;                     &lt;dbl&gt;
+1    12       1                      1.04
+2    12       2                      1.15
+3    12       3                      1.10
+4    12       4                      0.71
+5    12       5                      0.71</code></pre>
+</div>
+</div>
+</section>
+<section id="structural-loss-adjustments" class="level3">
+<h3 class="anchored" data-anchor-id="structural-loss-adjustments">Structural loss adjustments</h3>
+<p>While decay ratios account for decay and decomposition of wood, they don’t account for structural losses. Standing dead trees experience sloughing and breakage as a result of wind damage, animal activity, and many more issues. For this, structural loss adjustments are needed to accurately determine the biomass and carbon stored in SDTs.</p>
+<p>The structural loss adjustments can be obtained in <a href="https://cbmjournal.biomedcentral.com/articles/10.1186/1750-0680-6-14/tables/2">Table 2 of the Domke et al.&nbsp;paper</a>. These decay-class-specific adjustments are for the bole, bark, tops and limbs, stumps, and roots. The table <code>sla</code> produces these values. We can then merge the <code>sla</code> table with the <code>ref_spp_dead</code> table, then merge that to the <code>tree</code> table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sla <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>DECAYCD, <span class="sc">~</span>BOLE_SLA, <span class="sc">~</span>BARK_SLA, <span class="sc">~</span>TOP_SLA, <span class="sc">~</span>STUMP_SLA, <span class="sc">~</span>ROOTS_SLA,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.92</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">1</span>, <span class="fl">0.66</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">0.95</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="dv">1</span>, <span class="fl">0.39</span>, <span class="fl">0.20</span>, <span class="dv">1</span>, <span class="fl">0.80</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span>, <span class="dv">1</span>, <span class="fl">0.21</span>, <span class="fl">0.10</span>, <span class="dv">1</span>, <span class="fl">0.65</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.50</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>ref_spp_dead <span class="ot">&lt;-</span> <span class="fu">left_join</span>(ref_spp_dead, sla, <span class="at">by =</span> <span class="st">"DECAYCD"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">left_join</span>(tree, ref_spp_dead, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"SPCD"</span>, <span class="st">"DECAYCD"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Phew! That was a lot of work and we haven’t even begun to calculate biomass yet. No fear, now we have all of the variables required in the <code>tree</code> data set to begin the biomass and carbon calculations.</p>
+</section>
+</section>
+<section id="determing-component-biomass-in-standing-dead-trees" class="level2">
+<h2 class="anchored" data-anchor-id="determing-component-biomass-in-standing-dead-trees">Determing component biomass in standing dead trees</h2>
+<section id="stem-and-bark" class="level3">
+<h3 class="anchored" data-anchor-id="stem-and-bark">Stem and bark</h3>
+<p>We start by calculating the biomass in wood found the the stem of the tree (<span class="math inline">\(B_{ODW}\)</span>; kg). We will also need the specific gravity of wood for that species, i.e., the <code>WOOD_SPGR_GREENVOL_DRYWT</code> variable from the reference species file and <code>W</code>, the weight of one cubic meter of water (1,000 kg). The structural loss adjustment for the bole (<code>BOLE_SLA</code>) is multiplied by these values: <span class="math display">\[B_{ODW} = VOL\times \text{WOOD_SPGR_GREENVOL_DRYWT}\times \\ W \times \text{STANDING_DEAD_DECAY_RATIO}\times \text{BOLE_SLA}\]</span></p>
+<p>The biomass found in the bark of the tree is the next component to predict(<span class="math inline">\(B_{ODB}\)</span>; kg). For this we’ll also need to know the species-specific values for the percent of wood volume that is bark (<code>BARK_VOL_PCT</code>), the specific gravity of bark (BARK_SPGR_GREENVOL_DRYWT), and the structural loss adjustment for the bark component (<code>BARK_SLA</code>):</p>
+<p><span class="math display">\[B_{ODB} = VOL\times \text{BARK_VOL_PCT/100}\times \text{BARK_SPGR_GREENVOL_DRYWT} \times \\ W \times \text{STANDING_DEAD_DECAY_RATIO}\times \text{BARK_SLA}\]</span> Total SDT bole and bark biomass (<span class="math inline">\(B_{ODT}\)</span>) can be found by adding the two components:</p>
+<p><span class="math display">\[B_{ODT} = B_{ODW} + B_{ODB}\]</span></p>
+<p>Because this approach uses the component ratio method (CRM) to determine biomass stored in SDTs, the next step is to calculate the biomass in each SDT and them compute the ratios. First we need to calculate the bole biomass (kg) from the Jenkins et al.&nbsp;equation (<code>JENKINS_AG_TREE</code>). These equations have different parameters for 10 species groups:</p>
+<p><span class="math display">\[ \text{JENKINS_AG_TREE} = exp(\text{JENKINS_TOTAL_B1} + \\ \text{JENKINS_TOTAL_B2}*log(DIA)) \]</span> The bole ratio from the Jenkins et al.&nbsp;2003 paper (their Table 6) can be computed for softwood species as:</p>
+<p><span class="math display">\[ \text{BOLE_RATIO_SFWD} = exp(-0.3737 + (-1.8055/(DIA)) \]</span> and for hardwood species as:</p>
+<p><span class="math display">\[ \text{BOLE_RATIO_HDWD} = exp(-0.3065 + (-5.4240/(DIA)) \]</span></p>
+<p>Ratios of bark can be computed for softwood species as:</p>
+<p><span class="math display">\[ \text{BARK_RATIO_SFWD} = exp(-2.0980 + (-1.1432/(DIA)) \]</span></p>
+<p>and for hardwood species as:</p>
+<p><span class="math display">\[ \text{BOLE_RATIO_HDWD} = exp(-2.0129 + (-5.4240/(DIA)) \]</span> Merchantable oven-dry biomass (<code>MST</code>) is then calculated as:</p>
+<p><span class="math display">\[MST = (\text{JENKINS_AG_TREE} * \text{BOLE_RATIO}) + \\ (\text{JENKINS_AG_TREE} * \text{BARK_RATIO})\]</span></p>
+<p>Then, the CRM adjustment factor (<span class="math inline">\(CRM_{AdjFac}\)</span>) for each SDT can be calculated as:</p>
+<p><span class="math display">\[ CRM_{AdjFac} = B_{ODT}/MST \]</span></p>
+</section>
+<section id="stumps" class="level3">
+<h3 class="anchored" data-anchor-id="stumps">Stumps</h3>
+<p>Volume of stumps is calculated next. These equations are adopted from <a href="https://www.fs.usda.gov/research/treesearch/10745">Raile’s equations</a>. Stump volume is calculated as:</p>
+<p><span class="math display">\[ S_{VOL} = (\frac{\pi*DIA^2}{4*144})[((A-B)^2h+11B(A-B)ln(h+1)- \\ (\frac{30.25}{h+1}B^2)]_a^b)\times0.02832 \]</span></p>
+<p>where:</p>
+<ul>
+<li><code>S_VOL</code> is stump volume inside bark (<span class="math inline">\(S_{VISB}\)</span>) or outside bark (<span class="math inline">\(S_{VOSB}\)</span>),</li>
+<li><code>A</code> and <code>B</code> are species-specific coefficients (<code>RAILE_STUMP_DOB_B1</code>, <code>RAILE_STUMP_DIB_B1</code>, and <code>RAILE_STUMP_DIB_B2</code>),</li>
+<li><code>h</code> is the height above ground (ft),</li>
+<li><code>a</code> is the lower stump height (ft; typically set to 0), and</li>
+<li><code>b</code> is the upper stump height (ft; typically set to one.</li>
+</ul>
+<p>The biomass in the wood of stumps is calculated by multiplying the volume of stumps (inside bark) by the species specific gravity and the weight of water:</p>
+<p><span class="math display">\[S_{ODSW} = S_{VISB}\times \text{WOOD_SPGR_GREENVOL_DRYWT} \times W\]</span> A similar approach can be used for calculating the biomass in bark, this time subtracting the volume inside and outside the bark:</p>
+<p><span class="math display">\[S_{ODSB} = (S_{VOSB}-S_{VISB})\times \text{BARK_SPGR_GREENVOL_DRYWT} \times W\]</span> Total biomass in the stump (<span class="math inline">\(S_{ODT}\)</span>) can be calculated by applying the <span class="math inline">\(CRM_{AdjFac}\)</span> and the structural loss adjustment for the stump (<span class="math inline">\(STUMP_{SLA}\)</span>):</p>
+<p><span class="math display">\[S_{ODT} = (S_{ODSW} + S_{ODSB}) \times CRM_{AdjFac} \times STUMP_{SLA}\]</span></p>
+</section>
+<section id="tops-and-limbs" class="level3">
+<h3 class="anchored" data-anchor-id="tops-and-limbs">Tops and limbs</h3>
+<p>Next comes estimating the biomass in tops and limbs. Although foliage biomass is not calculated for SDTs, we calculate it to subtract it from total biomass. The foliage ratio is different for softwood and hardwood species and can be computed as:</p>
+<p><span class="math display">\[ \text{FOL_RATIO_SFWD} = exp(-2.9584 + (-4.4766/(DIA)) \]</span></p>
+<p>for softwood species and:</p>
+<p><span class="math display">\[ \text{FOL_RATIO_HDWD} = exp(-4.0813 + (-5.8816/(DIA)) \]</span></p>
+<p>for hardwood species. The top and branch biomass can be calculated from subtracting all other components and multiplying by the structural loss adjustment for tops and limbs:</p>
+<p><span class="math display">\[T_{ODT} = (\text{JENKINS_AG_TREE} - MST - (S_{ODSW} + S_{ODSB}) - \\ (\text{JENKINS_AG_TREE} * \text{FOL_RATIO})) * CRM_{AdjFac} * TOP_{SLA}\]</span></p>
+</section>
+<section id="belowground-roots" class="level3">
+<h3 class="anchored" data-anchor-id="belowground-roots">Belowground (roots)</h3>
+<p>The belowground (coarse roots) ratio from the Jenkins et al.&nbsp;2003 paper (their Table 6) can be computed for softwood species as:</p>
+<p><span class="math display">\[ \text{ROOT_RATIO_SFWD} = exp(-1.5619 + (0.6614/(DIA)) \]</span> and for hardwood species as:</p>
+<p><span class="math display">\[ \text{ROOT_RATIO_HDWD} = exp(-1.6911 + (0.8160/(DIA)) \]</span></p>
+<p>Belowground biomass (<span class="math inline">\(BG_{ODT}\)</span>) can then be calculated as:</p>
+<p><span class="math display">\[BG_{ODT} = (\text{ROOT_RATIO} \times \text{JENKINS_AG_tree}) \\ \times CRM_{AdjFac} \times ROOTS_{SLA}\]</span></p>
+</section>
+<section id="total-standing-dead-tree-biomass-and-carbon" class="level3">
+<h3 class="anchored" data-anchor-id="total-standing-dead-tree-biomass-and-carbon">Total standing dead tree biomass and carbon</h3>
+<p>Finally, the total biomass of a standing dead tree, including aboveground and belowground components, can be calculated as:</p>
+<p><span class="math display">\[\text{BIOMASS_TOTAL_SDT} = B_{ODT} + S_{ODT} + T_{ODT} + BG_{ODT}\]</span></p>
+<p>And we can multiply by 0.5, assuming half of biomass is carbon, to compute total carbon in a standing dead tree:</p>
+<p><span class="math display">\[\text{CARBON_TOTAL_SDT} = \text{BIOMASS_TOTAL_SDT} \times 0.5\]</span></p>
+</section>
+</section>
+<section id="r-functions-to-determine-standing-dead-tree-biomass-and-carbon" class="level2">
+<h2 class="anchored" data-anchor-id="r-functions-to-determine-standing-dead-tree-biomass-and-carbon">R functions to determine standing dead tree biomass and carbon</h2>
+<p>The R functions that calculate these values are written below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stem wood biomass</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fx_B_ODW <span class="ot">&lt;-</span> <span class="cf">function</span>(VOL, WOOD_SPGR_GREENVOL_DRYWT, W, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                    STANDING_DEAD_DECAY_RATIO, BOLE_SLA){</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  B_ODW <span class="ot">=</span> VOL<span class="sc">*</span>WOOD_SPGR_GREENVOL_DRYWT<span class="sc">*</span>W<span class="sc">*</span>STANDING_DEAD_DECAY_RATIO<span class="sc">*</span>BOLE_SLA</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(B_ODW)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Bark biomass</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>fx_B_ODB <span class="ot">&lt;-</span> <span class="cf">function</span>(VOL, BARK_VOL_PCT, W, BARK_SPGR_GREENVOL_DRYWT,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                    STANDING_DEAD_DECAY_RATIO, BARK_SLA){</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  B_ODB <span class="ot">=</span> VOL<span class="sc">*</span>(BARK_VOL_PCT<span class="sc">/</span><span class="dv">100</span>)<span class="sc">*</span>BARK_SPGR_GREENVOL_DRYWT<span class="sc">*</span><span class="dv">1000</span><span class="sc">*</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    STANDING_DEAD_DECAY_RATIO<span class="sc">*</span>BARK_SLA</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(B_ODB)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Total SDT biomass (stem wood and bark)</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>fx_B_ODT <span class="ot">&lt;-</span> <span class="cf">function</span>(B_ODW, B_ODB){</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  B_ODT <span class="ot">=</span> B_ODW <span class="sc">+</span> B_ODB</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(B_ODT)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Jenkins aboveground biomass</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>fx_JENKINS_AG_TREE <span class="ot">&lt;-</span> <span class="cf">function</span>(JENKINS_TOTAL_B1, JENKINS_TOTAL_B2, DIA){</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  JENKINS_AG_TREE <span class="ot">=</span> <span class="fu">exp</span>(JENKINS_TOTAL_B1 <span class="sc">+</span> JENKINS_TOTAL_B2<span class="sc">*</span><span class="fu">log</span>(DIA))</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(JENKINS_AG_TREE)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Bole ratio</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>fx_BOLE_RATIO <span class="ot">&lt;-</span> <span class="cf">function</span>(SFTWD_HRDWD, DIA){</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"S"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">0.3737</span>; b <span class="ot">=</span><span class="sc">-</span><span class="fl">1.8055</span>}</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"H"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">0.3065</span>; b <span class="ot">=</span><span class="sc">-</span><span class="fl">5.4240</span>}</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  BOLE_RATIO <span class="ot">=</span> <span class="fu">exp</span>(a <span class="sc">+</span> (b<span class="sc">/</span>(DIA)))</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(BOLE_RATIO)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Bark ratio</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>fx_BARK_RATIO <span class="ot">&lt;-</span> <span class="cf">function</span>(SFTWD_HRDWD, DIA){</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"S"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">2.0980</span>; b <span class="ot">=</span><span class="sc">-</span><span class="fl">1.1432</span>}</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"H"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">2.0129</span>; b <span class="ot">=</span><span class="sc">-</span><span class="fl">1.6805</span>}</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  BOLE_RATIO <span class="ot">=</span> <span class="fu">exp</span>(a <span class="sc">+</span> (b<span class="sc">/</span>(DIA)))</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(BOLE_RATIO)</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Merchantable oven-dry biomass</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>fx_MST <span class="ot">=</span> <span class="cf">function</span>(JENKINS_AG_TREE, BOLE_RATIO, BARK_RATIO){</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  MST <span class="ot">=</span> (JENKINS_AG_TREE <span class="sc">*</span> BOLE_RATIO) <span class="sc">+</span> (JENKINS_AG_TREE <span class="sc">*</span> BARK_RATIO)</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(MST)</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Component ratio adjustment factor</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>fx_CRM_AdjFac <span class="ot">=</span> <span class="cf">function</span>(B_ODT, MST){</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  CRM_AdjFac <span class="ot">=</span> B_ODT<span class="sc">/</span>MST</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(CRM_AdjFac)</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Stump volume outside bark,</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>fx_STUMP_VOSB <span class="ot">&lt;-</span> <span class="cf">function</span>(DIA, RAILE_STUMP_DOB_B1){</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>  STUMP_VOSB <span class="ot">=</span> (<span class="fl">3.14159265</span><span class="sc">*</span>((DIA)<span class="sc">**</span><span class="dv">2</span>))<span class="sc">/</span>(<span class="dv">4</span><span class="sc">*</span><span class="dv">144</span>)<span class="sc">*</span>(((<span class="dv">1</span><span class="sc">-</span>RAILE_STUMP_DOB_B1)<span class="sc">**</span><span class="dv">2</span><span class="sc">*</span><span class="dv">1</span><span class="sc">+</span><span class="dv">11</span><span class="sc">*</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>                RAILE_STUMP_DOB_B1<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>RAILE_STUMP_DOB_B1)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">-</span><span class="fl">30.25</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span> </span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>                  RAILE_STUMP_DOB_B1<span class="sc">**</span><span class="dv">2</span>)<span class="sc">-</span>((<span class="dv">1</span><span class="sc">-</span>RAILE_STUMP_DOB_B1)<span class="sc">**</span><span class="dv">2</span><span class="sc">*</span><span class="dv">0</span><span class="sc">+</span><span class="dv">11</span><span class="sc">*</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>                                            RAILE_STUMP_DOB_B1<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>RAILE_STUMP_DOB_B1)<span class="sc">*</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">log</span>(<span class="dv">0</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">-</span><span class="fl">30.25</span><span class="sc">/</span>(<span class="dv">0</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>RAILE_STUMP_DOB_B1<span class="sc">**</span><span class="dv">2</span>))<span class="sc">*</span><span class="fl">0.0283168</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(STUMP_VOSB)</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Stump volume inside bark</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>fx_STUMP_VISB <span class="ot">&lt;-</span> <span class="cf">function</span>(DIA, RAILE_STUMP_DIB_B1, RAILE_STUMP_DIB_B2){</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>  STUMP_VISB <span class="ot">=</span> (<span class="fl">3.14159265</span><span class="sc">*</span>((DIA)<span class="sc">**</span><span class="dv">2</span>))<span class="sc">/</span>(<span class="dv">4</span><span class="sc">*</span><span class="dv">144</span>)<span class="sc">*</span>(((RAILE_STUMP_DIB_B1<span class="sc">-</span>RAILE_STUMP_DIB_B2)<span class="sc">**</span><span class="dv">2</span><span class="sc">*</span><span class="dv">1</span><span class="sc">+</span><span class="dv">11</span><span class="sc">*</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>                 RAILE_STUMP_DIB_B2<span class="sc">*</span>(RAILE_STUMP_DIB_B1<span class="sc">-</span>RAILE_STUMP_DIB_B2)<span class="sc">*</span> <span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">-</span><span class="fl">30.25</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>             </span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>                   RAILE_STUMP_DIB_B2<span class="sc">**</span><span class="dv">2</span>)<span class="sc">-</span>((RAILE_STUMP_DIB_B1<span class="sc">-</span>RAILE_STUMP_DIB_B2)<span class="sc">**</span><span class="dv">2</span><span class="sc">*</span><span class="dv">0</span><span class="sc">+</span><span class="dv">11</span><span class="sc">*</span>                                                            RAILE_STUMP_DIB_B2<span class="sc">*</span>(RAILE_STUMP_DIB_B1<span class="sc">-</span>RAILE_STUMP_DIB_B2)<span class="sc">*</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">log</span>(<span class="dv">0</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">-</span><span class="fl">30.25</span><span class="sc">/</span>(<span class="dv">0</span><span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>RAILE_STUMP_DIB_B2<span class="sc">**</span><span class="dv">2</span>))<span class="sc">*</span><span class="fl">0.0283168</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(STUMP_VISB)</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Stump wood biomass</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>fx_S_ODSW <span class="ot">&lt;-</span> <span class="cf">function</span>(STUMP_VISB, WOOD_SPGR_GREENVOL_DRYWT, W){</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>  S_ODSW <span class="ot">=</span> STUMP_VISB<span class="sc">*</span>WOOD_SPGR_GREENVOL_DRYWT<span class="sc">*</span>W</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(S_ODSW)</span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a><span class="co"># Stump bark biomass</span></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>fx_S_ODSB <span class="ot">&lt;-</span> <span class="cf">function</span>(STUMP_VOSB, STUMP_VISB, BARK_SPGR_GREENVOL_DRYWT, W){</span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>  S_ODSB <span class="ot">=</span> (STUMP_VOSB <span class="sc">-</span> STUMP_VISB)<span class="sc">*</span>BARK_SPGR_GREENVOL_DRYWT<span class="sc">*</span>W</span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(S_ODSB)</span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Total stump biomass:</span></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>fx_S_ODT <span class="ot">&lt;-</span> <span class="cf">function</span>(S_ODSW, S_ODSB, CRM_AdjFac, STUMP_SLA){</span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>  S_ODT <span class="ot">=</span> (S_ODSW <span class="sc">+</span> S_ODSB)<span class="sc">*</span>CRM_AdjFac<span class="sc">*</span>STUMP_SLA</span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Foliage ratio</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>fx_FOL_RATIO <span class="ot">&lt;-</span> <span class="cf">function</span>(SFTWD_HRDWD, DIA){</span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"S"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">2.9584</span>; b <span class="ot">=</span><span class="sc">-</span><span class="fl">4.4766</span>}</span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"H"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">4.0813</span>; b <span class="ot">=</span><span class="sc">-</span><span class="fl">5.8816</span>}</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>  FOL_RATIO <span class="ot">=</span> <span class="fu">exp</span>(a <span class="sc">+</span> (b<span class="sc">/</span>(DIA)))</span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(FOL_RATIO)</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Top and branch biomass</span></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>fx_T_ODT <span class="ot">&lt;-</span> <span class="cf">function</span>(JENKINS_AG_TREE, MST, S_ODSW, S_ODSB,</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>                    FOL_RATIO, CRM_AdjFac, TOP_SLA){</span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>  T_ODT <span class="ot">=</span> (JENKINS_AG_TREE <span class="sc">-</span> MST <span class="sc">-</span> (S_ODSW <span class="sc">+</span> S_ODSB) <span class="sc">-</span> </span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>             (JENKINS_AG_TREE <span class="sc">*</span> FOL_RATIO)) <span class="sc">*</span> CRM_AdjFac <span class="sc">*</span> TOP_SLA</span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(T_ODT)</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a><span class="co"># Coarse root ratio</span></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>fx_ROOT_RATIO <span class="ot">&lt;-</span> <span class="cf">function</span>(SFTWD_HRDWD, DIA){</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"S"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">1.5619</span>; b <span class="ot">=</span><span class="fl">0.6614</span>}</span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SFTWD_HRDWD <span class="sc">==</span> <span class="st">"H"</span>){a<span class="ot">=</span><span class="sc">-</span><span class="fl">1.6911</span>; b <span class="ot">=</span><span class="fl">0.8160</span>}</span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>  ROOT_RATIO <span class="ot">=</span> <span class="fu">exp</span>(a <span class="sc">+</span> (b<span class="sc">/</span>(DIA)))</span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ROOT_RATIO)</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Belowground biomass</span></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>fx_ROOT_ODT <span class="ot">&lt;-</span> <span class="cf">function</span>(ROOT_RATIO, JENKINS_AG_TREE, CRM_AdjFac, ROOTS_SLA){</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>  ROOT_ODT <span class="ot">=</span> (ROOT_RATIO<span class="sc">*</span>JENKINS_AG_TREE) <span class="sc">*</span> CRM_AdjFac <span class="sc">*</span> ROOTS_SLA</span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(ROOT_ODT)</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Total biomass</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>fx_BIOMASS_TOTAL_SDT <span class="ot">&lt;-</span> <span class="cf">function</span>(B_ODT, S_ODT, T_ODT, ROOT_ODT){</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>  BIOMASS_TOTAL_SDT <span class="ot">=</span> B_ODT <span class="sc">+</span> S_ODT <span class="sc">+</span> T_ODT <span class="sc">+</span> ROOT_ODT</span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(BIOMASS_TOTAL_SDT)</span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="co"># Total carbon</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>fx_CARBON_TOTAL_SDT <span class="ot">&lt;-</span> <span class="cf">function</span>(BIOMASS_TOTAL_SDT){</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a>  CARBON_TOTAL_SDT <span class="ot">=</span> BIOMASS_TOTAL_SDT <span class="sc">*</span> <span class="fl">0.5</span></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(CARBON_TOTAL_SDT)</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we’ll apply the SDT functions to the <code>tree</code> data set. Note we’ll need to convert the volume from cubic feet to cubic meters by multiplying by 0.0283168, and change the diameter from inches/centimeters where needed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> tree <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">B_ODW =</span> <span class="fu">mapply</span>(fx_B_ODW, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">VOL =</span> VOL<span class="sc">*</span><span class="fl">0.0283168</span>, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">WOOD_SPGR_GREENVOL_DRYWT =</span> WOOD_SPGR_GREENVOL_DRYWT, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">W =</span> <span class="dv">1000</span>, </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">STANDING_DEAD_DECAY_RATIO =</span> STANDING_DEAD_DECAY_RATIO, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">BOLE_SLA =</span> BOLE_SLA),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">B_ODB =</span> <span class="fu">mapply</span>(fx_B_ODB,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">VOL =</span> (VOL<span class="sc">*</span><span class="fl">0.0283168</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">BARK_VOL_PCT =</span> BARK_VOL_PCT,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">BARK_SPGR_GREENVOL_DRYWT =</span> BARK_SPGR_GREENVOL_DRYWT,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">W =</span> <span class="dv">1000</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">STANDING_DEAD_DECAY_RATIO =</span> STANDING_DEAD_DECAY_RATIO,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">BARK_SLA =</span> BARK_SLA),</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">B_ODT =</span> <span class="fu">mapply</span>(fx_B_ODT, </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                        <span class="at">B_ODW =</span> B_ODW,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">B_ODB =</span> B_ODB),</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">JENKINS_AG_TREE =</span> <span class="fu">mapply</span>(fx_JENKINS_AG_TREE,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">JENKINS_TOTAL_B1 =</span> JENKINS_TOTAL_B1, </span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">JENKINS_TOTAL_B2 =</span> JENKINS_TOTAL_B2, </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">DIA =</span> DIA<span class="sc">*</span><span class="fl">2.54</span>),</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">BOLE_RATIO =</span> <span class="fu">mapply</span>(fx_BOLE_RATIO, </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>                              <span class="at">SFTWD_HRDWD =</span> SFTWD_HRDWD, </span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>                              <span class="at">DIA =</span> DIA<span class="sc">*</span><span class="fl">2.54</span>),</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">BARK_RATIO =</span> <span class="fu">mapply</span>(fx_BARK_RATIO, </span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>                             <span class="at">SFTWD_HRDWD =</span> SFTWD_HRDWD, </span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>                             <span class="at">DIA =</span> DIA<span class="sc">*</span><span class="fl">2.54</span>),</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">MST =</span> <span class="fu">mapply</span>(fx_MST,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>                      <span class="at">JENKINS_AG_TREE =</span> JENKINS_AG_TREE,</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                      <span class="at">BOLE_RATIO =</span> BOLE_RATIO,</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                      <span class="at">BARK_RATIO =</span> BARK_RATIO),</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">CRM_AdjFac =</span> <span class="fu">mapply</span>(fx_CRM_AdjFac,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>                             <span class="at">B_ODT =</span> B_ODT,</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>                             <span class="at">MST =</span> MST),</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>         <span class="at">STUMP_VOSB =</span> <span class="fu">mapply</span>(fx_STUMP_VOSB,</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>                             <span class="at">DIA =</span> DIA,</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>                             <span class="at">RAILE_STUMP_DOB_B1 =</span> RAILE_STUMP_DOB_B1),</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>         <span class="at">STUMP_VISB =</span> <span class="fu">mapply</span>(fx_STUMP_VISB,</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>                             <span class="at">DIA =</span> DIA,</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>                             <span class="at">RAILE_STUMP_DIB_B1 =</span> RAILE_STUMP_DIB_B1,</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>                             <span class="at">RAILE_STUMP_DIB_B2 =</span> RAILE_STUMP_DIB_B2),</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>         <span class="at">S_ODSW =</span> <span class="fu">mapply</span>(fx_S_ODSW,</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>                          <span class="at">STUMP_VISB =</span> STUMP_VISB,</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>                          <span class="at">WOOD_SPGR_GREENVOL_DRYWT =</span> WOOD_SPGR_GREENVOL_DRYWT,</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>                          <span class="at">W =</span> <span class="dv">1000</span>),</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>         <span class="at">S_ODSB =</span> <span class="fu">mapply</span>(fx_S_ODSB,</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>                         <span class="at">STUMP_VOSB =</span> STUMP_VOSB,</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>                         <span class="at">STUMP_VISB =</span> STUMP_VISB,</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>                         <span class="at">BARK_SPGR_GREENVOL_DRYWT =</span> BARK_SPGR_GREENVOL_DRYWT,</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>                         <span class="at">W =</span> <span class="dv">1000</span>),</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>         <span class="at">S_ODT =</span> <span class="fu">mapply</span>(fx_S_ODT,</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                        <span class="at">S_ODSW =</span> S_ODSW,</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>                        <span class="at">S_ODSB =</span> S_ODSB,</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>                        <span class="at">CRM_AdjFac =</span> CRM_AdjFac,</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>                        <span class="at">STUMP_SLA =</span> STUMP_SLA),</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>         <span class="at">FOL_RATIO =</span> <span class="fu">mapply</span>(fx_FOL_RATIO,</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                            <span class="at">SFTWD_HRDWD =</span> SFTWD_HRDWD, </span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                            <span class="at">DIA =</span> DIA<span class="sc">*</span><span class="fl">2.54</span>),</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>         <span class="at">T_ODT =</span> <span class="fu">mapply</span>(fx_T_ODT,</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>                        <span class="at">JENKINS_AG_TREE =</span> JENKINS_AG_TREE,</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>                        <span class="at">MST =</span> MST,</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>                        <span class="at">S_ODSW =</span> S_ODSW,</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>                        <span class="at">S_ODSB =</span> S_ODSB,</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>                        <span class="at">FOL_RATIO =</span> FOL_RATIO,</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>                        <span class="at">CRM_AdjFac =</span> CRM_AdjFac,</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>                        <span class="at">TOP_SLA =</span> TOP_SLA),</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>         <span class="at">ROOT_RATIO =</span> <span class="fu">mapply</span>(fx_ROOT_RATIO,</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>                            <span class="at">SFTWD_HRDWD =</span> SFTWD_HRDWD, </span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>                            <span class="at">DIA =</span> DIA<span class="sc">*</span><span class="fl">2.54</span>),</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>         <span class="at">ROOT_ODT =</span> <span class="fu">mapply</span>(fx_ROOT_ODT,</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ROOT_RATIO =</span> ROOT_RATIO, </span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>                           <span class="at">JENKINS_AG_TREE =</span> JENKINS_AG_TREE, </span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>                           <span class="at">CRM_AdjFac =</span> CRM_AdjFac, </span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ROOTS_SLA =</span> ROOTS_SLA),</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>         <span class="at">BIOMASS_TOTAL_SDT =</span> <span class="fu">mapply</span>(fx_BIOMASS_TOTAL_SDT,</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">B_ODT =</span> B_ODT,</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">S_ODT =</span> S_ODT,</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">T_ODT =</span> T_ODT,</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">ROOT_ODT =</span> ROOT_ODT),</span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>         <span class="at">CARBON_TOTAL_SDT =</span> <span class="fu">mapply</span>(fx_CARBON_TOTAL_SDT,</span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">BIOMASS_TOTAL_SDT =</span> BIOMASS_TOTAL_SDT))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can plot the diameter-carbon trends, and we end up with a graph that looks similar to to the volume-diameter trends from before:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tree, <span class="fu">aes</span>(<span class="at">x =</span> DIA, <span class="at">y =</span> CARBON_TOTAL_SDT<span class="sc">*</span><span class="fl">2.20462</span>, <span class="at">col =</span> <span class="fu">factor</span>(SPCD))) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Diameter (in.)"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total carbon (pounds)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We may be interested in a plot-level summary of SDT carbon. The code below summarizes the per-acre values of SDT carbon, by converting to pounds and multiplying by the tree’s expansion factor (In the FIA data, one tree sampled represents approximately six trees sampled on a per acre basis):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dead_sum <span class="ot">&lt;-</span> tree <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CARBON_TOTAL_SDT_part =</span> CARBON_TOTAL_SDT<span class="sc">*</span><span class="fl">2.20462</span><span class="sc">*</span><span class="fl">6.018046</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(STATECD, COUNTYCD, PLOT) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">CARBON_TOTAL_SDT_lbs_ac =</span> <span class="fu">sum</span>(CARBON_TOTAL_SDT_part))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As we can see, we have anywhere between 0.2 and 0.7 tons per acre of standing dead tree carbon from these four inventory plots:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dead_sum, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(PLOT), <span class="at">y =</span> CARBON_TOTAL_SDT_lbs_ac<span class="sc">/</span><span class="dv">2000</span>)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"PLOT ID"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total carbon (tons/ac)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="other-notes" class="level2">
+<h2 class="anchored" data-anchor-id="other-notes">Other notes</h2>
+<p>A few other notes about determining the biomass and carbon in standing dead trees:</p>
+<ul>
+<li>Depending on the data collected on the SDTs from your inventory, there may also be measurements such as whether or not the stem is <strong>cull or rotten</strong>. After all, these characteristics are likely if the tree is dead. Some deductions in volume can be taken at the start before determining biomass and carbon.</li>
+<li>The selection of <strong>which volume equation to use</strong> has a large influence on the amount of carbon. If using FIA data, the <code>VOLCFSND</code> variable is the one that’s used in the component ratio method. These are regionally specific equations that use either height or site index. If <strong>taper equations</strong> are available for your area, consider using those given the variability in heights (e.g., broken limbs) on standing dead trees. That’s an approach I applied <a href="https://www.sciencedirect.com/science/article/pii/S0378112712004793">on some SDT data in Maine</a>. (At least the peer reviewers didn’t complain.)</li>
+<li>Some inventories, like FIA’s, collect a height measurement that assumes the tree has it’s top and limbs intact (e.g., the <code>HT</code> variable in FIA) and a <strong>true height</strong> (e.g., the <code>ACTUALHT</code> variable in FIA). When computing volume, biomass, and carbon of SDTs a true actual height is a better representation because it would incorporate broken stems.</li>
+<li>These data and equations use a five-class <strong>decay class system</strong>. This approach can be adapted by refining the decay ratios and structural loss adjustments for trees in the region you work in.</li>
+<li>The approach outlined here is similar to estimating the biomass and carbon in <strong>live trees</strong>. It’s the regional volume equations that are more complex and vary across the US.</li>
+<li>These approaches often calculate terms in mixed English and metric units. See the <a href="https://arbor-analytics.com/post/2022-12-21-forest-carbon-cheat-sheet-updated-for-2022/">Forest Carbon Cheat Sheet</a> for a handy list on common units and conversion factors.</li>
+<li>The USDA Forest Service will soon release <a href="https://www.fs.usda.gov/research/research/inventory/FIA/VBC"><strong>updated equations</strong></a> for determining volume, biomass, and carbon of trees. No doubt this will also influence the calculation of standing dead trees.</li>
+</ul>
+<p>–</p>
+<p><em>By Matt Russell. Sign up for my <a href="https://mailchi.mp/d96897dc0f46/arbor-analytics">monthly newsletter</a> for in-depth analysis on data and analytics in the forest products industry.</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/vermillion-arithmetic-f3ba07\.netlify\.app");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Designed with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

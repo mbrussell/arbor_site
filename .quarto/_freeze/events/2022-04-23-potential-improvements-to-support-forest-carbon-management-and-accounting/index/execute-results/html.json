@@ -1,0 +1,15 @@
+{
+  "hash": "7d4b96077b653d6895ce98f7ed506dbf",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Potential improvements to support forest carbon management and accounting\ndate: '2022-03-21'\nslug: []\ncategories:\n  - Forest carbon\n  - Presentation\ntags:\n  - carbon\n  - forest carbon\n  - forest inventory\ndescription: 'Presentation for the FIA National User Group-Special Focus session.'\n---\n\n\n\n<center>\n\n![](carbon_screenshot.jpg){width=500px}\n</center>\n \n## \n\nImprovements are needed in the current forest inventory and monitoring programs to support forest carbon management and accounting. This presentation was a part of a Special Focus session of the Forest Inventory and Analysis National User Group. \n\n[READ THE SLIDES](https://docs.google.com/presentation/d/11j0xDbZWE89YfJOGgS7g3YAj658U8wiO_tSJjQGTpCg/edit?usp=sharing). ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

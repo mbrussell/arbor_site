@@ -1,0 +1,25 @@
+---
+title: "Arbor Custom Analytics website now runs on Quarto"
+description: "The Arbor Custom Analytics website now runs on Quarto, an open source publishing system for sharing information."
+author:
+  - name: Matt Russell
+date: 05-09-2024
+categories: [Behind the curtain] 
+image: quarto_small.png
+draft: false 
+---
+
+
+#   
+<center>
+![](quarto_small.png){width=500px}  
+</center>
+#  
+
+I've recently moved the Arbor Custom Analytics website to [Quarto](https://quarto.org/), an open source publishing system. It's built on top of Jupyter and Markdown, and it's a great fit for ou work.
+
+Most of the content has ported over, but a few older blog posts might be missing. If you're looking for something specific and don;t see it, feel free [to reach out](mailto: matt@arbor-analytics.com).
+
+--
+
+*By Matt Russell.* 

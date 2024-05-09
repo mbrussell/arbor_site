@@ -1,0 +1,51 @@
+---
+pagetitle: "Arbor Custom Analytics LLC"
+page-layout: custom
+section-divs: false
+editor: source
+sidebar: false
+search: false
+repo-actions: false
+description: | 
+  Arbor Custom Analytics LLC provides data and analytics consulting services for the forest products industry.
+image: images/arbor_chain.png
+listing:
+  - id: post
+    contents: 
+    - /post
+    - "index.qmd"
+    sort: "date desc"
+    type: grid
+    categories: false
+    sort-ui: false
+    filter-ui: false
+    max-items: 6
+    feed: false
+
+toc: false
+---
+ 
+  
+<center>
+
+::: {.pullout-text}
+::: {.pullout-container}
+::: {.pullout-block .black-background}
+![](images/arbor_horiz.png)
+
+## Research-based, innovative, and customized 
+
+#### We support forestry companies and organizations by providing customized analytics support. 
+
+#### This empowers organizations to make better decisions with their data.
+
+#
+
+::: {.button}
+[Learn more.](about.qmd){.btn .btn-outline-primary .btn role="button"}
+:::
+
+:::
+:::
+:::
+</center>

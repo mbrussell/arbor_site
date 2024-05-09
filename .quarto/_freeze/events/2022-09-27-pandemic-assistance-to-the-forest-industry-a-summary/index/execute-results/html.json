@@ -1,0 +1,15 @@
+{
+  "hash": "13797430b0989bc4c64b8001427236b9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 'Pandemic assistance to the forest industry: a summary'\ndate: '2022-09-21'\nslug: []\ncategories:\n  - Forest industry\n  - Presentation\ntags:\n  - forest products\n  - forest industry\n  - pandemic\n  - PPP loans\n  - timber harvesting\n  - trucking\ndescription: 'Presentation at the SAF National Convention.'\nimage: pandemic_title.png\n---\n\n\n<center>\n\n![](pandemic_title.png)\n\n</center>\n\n##\n \nForest products and timber harvesting and hauling businesses secured nearly $5 billion of federal funds through the Paycheck Protection Program and Pandemic Assistance to Timber Harvesters and Haulers programs to combat economic challenges presented by the COVID-19 pandemic. These slides were presented at the 2022 Society of American Foresters Convention in Baltimore, MD.\n\n[READ THE SLIDES](https://docs.google.com/presentation/d/1ICpl4hScGt53jDLA6af9eqR0TdprKZFHQvkAXaXEcSw/edit?usp=sharing). ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
